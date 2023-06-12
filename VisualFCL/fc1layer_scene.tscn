@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://drg0c08wj0px6"]
+
+[node name="FC1LayerScene" type="Node2D"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0.941176, 0.941176, 0.941176, 1)
