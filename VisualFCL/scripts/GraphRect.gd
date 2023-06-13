@@ -50,9 +50,13 @@ func add_axis_scale(pos, txt):
 func _ready():
 	# 目盛り値ラベル設置
 	add_axis_scale(Vector2(ORG_X-BTM_OFST, BTM), "0.0")
+	axis_labels.push_back(add_axis_scale(Vector2(ORG_X+GRAPH_WD/4-BTM_OFST, BTM), "%.1f" % (maxv/2)))
 	axis_labels.push_back(add_axis_scale(Vector2(RT-BTM_OFST, BTM), "%.1f" % maxv))
-	axis_labels.push_back(add_axis_scale(Vector2(LT-BTM_OFST, BTM), "%.1f" % -maxv))
+	axis_labels.push_back(add_axis_scale(Vector2(ORG_X-GRAPH_WD/4-BTM_OFST, BTM), "-%.1f" % (maxv/2)))
+	axis_labels.push_back(add_axis_scale(Vector2(LT-BTM_OFST, BTM), "-%.1f" % maxv))
 	add_axis_scale(Vector2(LLT, ORG_Y-LT_OFST), "0.0")
+	axis_labels.push_back(add_axis_scale(Vector2(LLT, ORG_Y-GRAPH_HT/4-LT_OFST), "%.1f" % (maxv/2)))
+	axis_labels.push_back(add_axis_scale(Vector2(LLT, ORG_Y+GRAPH_HT/4-LT_OFST), "-%.1f" % (maxv/2)))
 	axis_labels.push_back(add_axis_scale(Vector2(LLT, TOP-LT_OFST), "%.1f" % maxv))
 	#
 	pass
@@ -92,9 +96,13 @@ func _draw():
 		draw_line(Vector2(ORG_X+d, BTM), Vector2(ORG_X+d, BTM-SCALE_WD), Color.BLACK)
 		draw_line(Vector2(ORG_X+d, TOP), Vector2(ORG_X+d, TOP+SCALE_WD), Color.BLACK)
 	#
-	axis_labels[0].text = "%.1f" % maxv
-	axis_labels[1].text = "-%.1f" % maxv
-	axis_labels[2].text = "%.1f" % maxv
+	axis_labels[0].text = "%.1f" % (maxv/2)
+	axis_labels[1].text = "%.1f" % maxv
+	axis_labels[2].text = "-%.1f" % (maxv/2)
+	axis_labels[3].text = "-%.1f" % maxv
+	axis_labels[4].text = "%.1f" % (maxv/2)
+	axis_labels[5].text = "-%.1f" % (maxv/2)
+	axis_labels[6].text = "%.1f" % maxv
 	#
 	pass
 	
