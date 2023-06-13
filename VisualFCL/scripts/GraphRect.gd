@@ -66,6 +66,41 @@ func _ready():
 func _process(delta):
 	pass
 
+func posToScreenPos(pos : Vector2) -> Vector2:
+	return Vector2(ORG_X + (pos.x/maxv) * (GRAPH_WD/2), ORG_Y - (pos.y/maxv) * (GRAPH_HT/2))
+# f(x, y) = b + w1*x + w2*y = 0 の直線描画
+func draw_div_line(p: Array):
+	var b  = p[0]
+	var w1 = p[1]
+	var w2 = p[2]
+	print("w1, w2, b = ", w1, " ", w2, " ", b)
+	print("-w1/w2 = ", -w1/w2)
+	print("-b/w2 = ", -b/w2)
+	var lst = []
+	var x = (-w2*maxv - b) / w1	# y == maxv との接線
+	if x >= -maxv && x <= maxv: lst.push_back(Vector2(x, maxv))
+	x = (w2*maxv - b) / w1	# y == -maxv との接線
+	if x >= -maxv && x <= maxv: lst.push_back(Vector2(x, -maxv))
+	var y = (-w1*maxv - b) / w2	# x == maxv との接線
+	if y > -maxv && y < maxv: lst.push_back(Vector2(maxv, y))
+	y = (w1*maxv - b) / w2	# x == -maxv との接線
+	if y > -maxv && y < maxv: lst.push_back(Vector2(-maxv, y))
+	if lst.size() == 2:
+		var col = Color.BLUE if w2 > 0 else Color.RED
+		var p1 = posToScreenPos(lst[0])
+		var p2 = posToScreenPos(lst[1])
+		draw_line(p1, p2, col)
+	pass
+func plot_boolean():
+	draw_circle(posToScreenPos(Vector2(0, 0)), 4.0, Color.BLACK)
+	draw_circle(posToScreenPos(Vector2(1, 0)), 4.0, Color.BLACK)
+	draw_circle(posToScreenPos(Vector2(0, 1)), 4.0, Color.BLACK)
+	draw_circle(posToScreenPos(Vector2(1, 1)), 4.0, Color.BLACK)
+func plot_points():
+	for i in range(points.size()):
+		var x = points[i][0]
+		var y = points[i][1]
+		draw_circle(posToScreenPos(Vector2(x, y)), 4.0, Color.BLACK)
 func _draw():
 	print("draw()")
 	# 背景＋影 描画
@@ -103,6 +138,8 @@ func _draw():
 	axis_labels[4].text = "%.1f" % (maxv/2)
 	axis_labels[5].text = "-%.1f" % (maxv/2)
 	axis_labels[6].text = "%.1f" % maxv
+	#
+	plot_boolean()
 	#
 	pass
 	
