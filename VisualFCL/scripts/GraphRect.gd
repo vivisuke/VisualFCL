@@ -39,7 +39,7 @@ var ope = OP_AND
 var n_output_node = 1						# 出力ノード数
 var uniform_range = 0.02					# 一様分布範囲
 var param_lst = []							
-var param = [-1.0, 1.0, 1.0]				# [b, w1, w2]
+var vec_weight = [-1.0, 1.0, 1.0]			# [b, w1, w2] 重みベクター
 var axis_labels = []
 var points = []								# 入力データ配列
 
@@ -53,6 +53,11 @@ func add_axis_scale(pos, txt):
 	return lbl
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	# デフォルト重みベクター初期化
+	vec_weight[0] = sin(randf_range(0.0, 2*PI))
+	var th = randf_range(0.0, 2*PI)
+	vec_weight[1] = cos(th)
+	vec_weight[2] = sin(th)
 	# 目盛り値ラベル設置
 	add_axis_scale(Vector2(ORG_X-BTM_OFST, BTM), "0.0")
 	axis_labels.push_back(add_axis_scale(Vector2(ORG_X+GRAPH_WD/4-BTM_OFST, BTM), "%.1f" % (maxv/2)))
@@ -159,5 +164,6 @@ func _draw():
 	#
 	plot_boolean()
 	#
+	draw_div_line(vec_weight)
 	pass
 	
