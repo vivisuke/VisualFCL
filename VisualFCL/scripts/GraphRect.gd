@@ -9,6 +9,10 @@ enum {
 	DSP_001 = 0,				# 0.01
 	DSP_XAVIER,
 	DSP_HE,
+	#
+	OP_AND = 0, OP_OR, OP_NAND,
+	OP_GT,		# x1 > x2
+	OP_XOR,
 }
 const SCREEN_WD = 600.0
 const SCREEN_HT = 600.0
@@ -31,6 +35,7 @@ const ORG_Y = SPACE_TOP + GRAPH_HT/2
 var dispersion = DSP_001					# 重み分散、0.01 | Xavier | He
 var distribution = UNIFORM_DISTRIBUTION		# 分布
 var maxv = 2.0								# グラフ範囲
+var ope = OP_AND
 var n_output_node = 1						# 出力ノード数
 var uniform_range = 0.02					# 一様分布範囲
 var param_lst = []							
@@ -91,11 +96,24 @@ func draw_div_line(p: Array):
 		var p2 = posToScreenPos(lst[1])
 		draw_line(p1, p2, col)
 	pass
+func plot_boolean_sub(pos:Vector2):
+	var b = 0
+	if ope == OP_AND: b = 1.0 if pos.x != 0 && pos.y != 0.0 else 0.0		# AND
+	elif ope == OP_OR: b = 1.0 if pos.x != 0 || pos.y != 0.0 else 0.0		# OR
+	elif ope == OP_NAND: b = 0.0 if pos.x != 0 && pos.y != 0.0 else 1.0		# NAND
+	elif ope == OP_GT: b = 1.0 if pos.x > pos.y else 0.0					# x1 > x2
+	elif ope == OP_XOR: b = 1.0 if pos.x != pos.y else 0.0					# XOR
+	var col = Color.BLACK if b else Color.DARK_GRAY
+	draw_circle(posToScreenPos(pos), 4.0, col)
 func plot_boolean():
-	draw_circle(posToScreenPos(Vector2(0, 0)), 4.0, Color.BLACK)
-	draw_circle(posToScreenPos(Vector2(1, 0)), 4.0, Color.BLACK)
-	draw_circle(posToScreenPos(Vector2(0, 1)), 4.0, Color.BLACK)
-	draw_circle(posToScreenPos(Vector2(1, 1)), 4.0, Color.BLACK)
+	plot_boolean_sub(Vector2(0, 0))
+	plot_boolean_sub(Vector2(1, 0))
+	plot_boolean_sub(Vector2(0, 1))
+	plot_boolean_sub(Vector2(1, 1))
+	#draw_circle(posToScreenPos(Vector2(0, 0)), 4.0, Color.BLACK)
+	#draw_circle(posToScreenPos(Vector2(1, 0)), 4.0, Color.BLACK)
+	#draw_circle(posToScreenPos(Vector2(0, 1)), 4.0, Color.BLACK)
+	#draw_circle(posToScreenPos(Vector2(1, 1)), 4.0, Color.BLACK)
 func plot_points():
 	for i in range(points.size()):
 		var x = points[i][0]
