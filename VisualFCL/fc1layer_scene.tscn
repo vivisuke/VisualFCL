@@ -15,3 +15,19 @@ offset_top = 24.0
 offset_right = 624.0
 offset_bottom = 624.0
 script = ExtResource("1_88yod")
+
+[node name="ItrLabel" type="Label" parent="."]
+offset_left = 645.0
+offset_top = 24.0
+offset_right = 730.0
+offset_bottom = 50.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Iteration: 0"
+
+[node name="WeightLabel" type="Label" parent="."]
+offset_left = 645.0
+offset_top = 50.0
+offset_right = 730.0
+offset_bottom = 76.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "[b, w1, w2]: [0, 0, 0]"
