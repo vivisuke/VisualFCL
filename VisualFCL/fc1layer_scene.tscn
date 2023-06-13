@@ -48,3 +48,5 @@ offset_top = 24.0
 offset_right = 1132.0
 offset_bottom = 55.0
 text = "Init"
+
+[connection signal="pressed" from="InitButton" to="." method="_on_init_button_pressed"]
