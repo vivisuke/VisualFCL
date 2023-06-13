@@ -42,6 +42,38 @@ offset_bottom = 102.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Loss = N/A"
 
+[node name="HelpLabel_1" type="Label" parent="."]
+offset_left = 645.0
+offset_top = 107.0
+offset_right = 835.0
+offset_bottom = 133.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "※ a = b + w1*x1 + w2*x2"
+
+[node name="HelpLabel_2" type="Label" parent="."]
+offset_left = 645.0
+offset_top = 133.0
+offset_right = 835.0
+offset_bottom = 159.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "※ y = af(a) = sigmoid(a) = 1/(1 + exp(-a))"
+
+[node name="HelpLabel_3" type="Label" parent="."]
+offset_left = 645.0
+offset_top = 159.0
+offset_right = 835.0
+offset_bottom = 185.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "※ Loss = 1/BN * 1/2 * ∑(yi - ti)^2"
+
+[node name="HelpLabel_4" type="Label" parent="."]
+offset_left = 645.0
+offset_top = 185.0
+offset_right = 919.0
+offset_bottom = 211.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "※ BN: バッチデータ数"
+
 [node name="InitButton" type="Button" parent="."]
 offset_left = 1098.0
 offset_top = 24.0
@@ -49,4 +81,12 @@ offset_right = 1132.0
 offset_bottom = 55.0
 text = "Init"
 
+[node name="Train1Button" type="Button" parent="."]
+offset_left = 1030.0
+offset_top = 76.0
+offset_right = 1130.0
+offset_bottom = 107.0
+text = "Train 1 Step"
+
 [connection signal="pressed" from="InitButton" to="." method="_on_init_button_pressed"]
+[connection signal="pressed" from="Train1Button" to="." method="_on_train_1_button_pressed"]
