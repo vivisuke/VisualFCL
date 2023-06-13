@@ -33,3 +33,18 @@ offset_right = 730.0
 offset_bottom = 76.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "[b, w1, w2]: [0, 0, 0]"
+
+[node name="LossLabel" type="Label" parent="."]
+offset_left = 645.0
+offset_top = 76.0
+offset_right = 730.0
+offset_bottom = 102.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Loss = N/A"
+
+[node name="InitButton" type="Button" parent="."]
+offset_left = 1098.0
+offset_top = 24.0
+offset_right = 1132.0
+offset_bottom = 55.0
+text = "Init"
