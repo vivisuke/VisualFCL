@@ -115,12 +115,18 @@ offset_left = 1011.0
 offset_top = 237.0
 offset_right = 1130.0
 offset_bottom = 268.0
-item_count = 2
+item_count = 5
 selected = 0
 popup/item_0/text = "AND"
 popup/item_0/id = 0
 popup/item_1/text = "OR"
 popup/item_1/id = 1
+popup/item_2/text = "NAND"
+popup/item_2/id = 2
+popup/item_3/text = "x1 > x2"
+popup/item_3/id = 3
+popup/item_4/text = "XOR"
+popup/item_4/id = 4
 
 [node name="Label" type="Label" parent="OperatorButton"]
 layout_mode = 0
