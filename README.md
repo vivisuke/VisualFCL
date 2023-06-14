@@ -1,2 +1,2 @@
 # VisualFCL
-Fully Connected Layer Vosualization
+Fully Connected Layer Visualization
