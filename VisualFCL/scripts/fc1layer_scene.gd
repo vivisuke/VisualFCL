@@ -121,8 +121,8 @@ func _on_train_1_button_pressed():
 func _on_train_100_button_pressed():
 	n_train = 100
 	pass # Replace with function body.
-func _on_train_1000_button_pressed():
-	n_train = 1000
+func _on_train_500_button_pressed():
+	n_train = 500
 	pass # Replace with function body.
 
 

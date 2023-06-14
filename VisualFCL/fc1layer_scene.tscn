@@ -103,12 +103,12 @@ offset_right = 1130.0
 offset_bottom = 164.0
 text = "Train 100s"
 
-[node name="Train1000Button" type="Button" parent="."]
+[node name="Train500Button" type="Button" parent="."]
 offset_left = 1011.0
 offset_top = 185.0
 offset_right = 1130.0
 offset_bottom = 216.0
-text = "Train 1000s"
+text = "Train 500s"
 
 [node name="OperatorButton" type="OptionButton" parent="."]
 offset_left = 1011.0
@@ -135,5 +135,5 @@ vertical_alignment = 1
 [connection signal="pressed" from="InitButton" to="." method="_on_init_button_pressed"]
 [connection signal="pressed" from="Train1Button" to="." method="_on_train_1_button_pressed"]
 [connection signal="pressed" from="Train100Button" to="." method="_on_train_100_button_pressed"]
-[connection signal="pressed" from="Train1000Button" to="." method="_on_train_1000_button_pressed"]
+[connection signal="pressed" from="Train500Button" to="." method="_on_train_500_button_pressed"]
 [connection signal="item_selected" from="OperatorButton" to="." method="_on_operator_button_item_selected"]
