@@ -109,3 +109,10 @@ func do_train():
 func _on_train_1_button_pressed():
 	do_train()
 	pass # Replace with function body.
+
+
+func _on_operator_button_item_selected(index):
+	ope = index
+	$GraphRect.ope = ope
+	$GraphRect.queue_redraw()
+	pass # Replace with function body.

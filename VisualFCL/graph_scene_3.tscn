@@ -1,0 +1,118 @@
+[gd_scene load_steps=3 format=3 uid="uid://wyxp2wht0nrh"]
+
+[ext_resource type="Script" path="res://GraphBG3.gd" id="1_fayo8"]
+[ext_resource type="Script" path="res://graph_scene_3.gd" id="1_fikvk"]
+
+[node name="GraphScene3" type="Node2D"]
+script = ExtResource("1_fikvk")
+
+[node name="GraphBG3" type="ColorRect" parent="."]
+offset_right = 1000.0
+offset_bottom = 600.0
+script = ExtResource("1_fayo8")
+
+[node name="RoundLabel" type="Label" parent="."]
+offset_left = 632.0
+offset_top = 8.0
+offset_right = 711.0
+offset_bottom = 34.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Round: #0"
+
+[node name="ParamLabel_1" type="Label" parent="."]
+offset_left = 632.0
+offset_top = 40.0
+offset_right = 832.0
+offset_bottom = 66.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "■ [b, w1, w2] = [-1.0, 1.0, 1.0]"
+
+[node name="ParamLabel_2" type="Label" parent="."]
+offset_left = 632.0
+offset_top = 72.0
+offset_right = 832.0
+offset_bottom = 98.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "◆ [b, w1, w2] = [-1.0, 1.0, 1.0]"
+
+[node name="ParamLabel_3" type="Label" parent="."]
+offset_left = 632.0
+offset_top = 104.0
+offset_right = 832.0
+offset_bottom = 130.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "● [b, w1, w2] = [-1.0, 1.0, 1.0]"
+
+[node name="LossLabel" type="Label" parent="."]
+offset_left = 632.0
+offset_top = 136.0
+offset_right = 832.0
+offset_bottom = 162.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Loss = N/A"
+
+[node name="TrainButton" type="Button" parent="."]
+offset_left = 888.0
+offset_top = 472.0
+offset_right = 987.0
+offset_bottom = 503.0
+text = "Train 1 step"
+
+[node name="Train100Button" type="Button" parent="."]
+offset_left = 888.0
+offset_top = 512.0
+offset_right = 987.0
+offset_bottom = 543.0
+text = "Train 100s"
+
+[node name="InitButton" type="Button" parent="."]
+offset_left = 888.0
+offset_top = 552.0
+offset_right = 987.0
+offset_bottom = 583.0
+text = "Init"
+
+[node name="OpeOption" type="OptionButton" parent="."]
+offset_left = 888.0
+offset_top = 432.0
+offset_right = 966.0
+offset_bottom = 463.0
+item_count = 5
+selected = 4
+popup/item_0/text = "AND"
+popup/item_0/id = 0
+popup/item_1/text = "OR"
+popup/item_1/id = 1
+popup/item_2/text = "NAND"
+popup/item_2/id = 2
+popup/item_3/text = "x1 > X2"
+popup/item_3/id = 3
+popup/item_4/text = "XOR"
+popup/item_4/id = 4
+
+[node name="Label" type="Label" parent="OpeOption"]
+layout_mode = 0
+offset_left = -104.0
+offset_bottom = 31.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "目的演算子："
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="LearningFactor" type="LineEdit" parent="."]
+offset_left = 888.0
+offset_top = 392.0
+offset_right = 955.063
+offset_bottom = 423.0
+alignment = 2
+
+[node name="Label" type="Label" parent="LearningFactor"]
+layout_mode = 0
+offset_left = -112.0
+offset_bottom = 31.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "学習係数："
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[connection signal="pressed" from="InitButton" to="." method="_on_init_button_pressed"]
