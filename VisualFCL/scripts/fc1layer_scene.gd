@@ -7,14 +7,15 @@ enum {
 }
 const boolean_pos = [[0, 0], [1, 0], [0, 1], [1, 1]]
 var ALPHA = 0.1			# 学習率
-var round = 0						# ラウンド数
+#var round = 0						# ラウンド数
 var ope = OP_AND
 var n_train = 0
+var n_iteration = 0					# イテレーション数
 var n_batch
 var sumLoss
 var fcl
-var vec_weight = [0.0, 0.7, 0.7]		# [b, w1, w2] 重みベクター
-var vec_grad							# 勾配合計
+var vec_weight = [0.0, 0.7, 0.7]	# [b, w1, w2] 重みベクター
+var vec_grad						# 勾配合計
 
 # ２入力１出力総結合層クラス
 # 活性化関数：シグモイド固定
@@ -50,7 +51,8 @@ func _ready():
 	init()
 	pass # Replace with function body.
 func init():
-	round = 0
+	#round = 0
+	n_iteration = 0
 	n_train = 0
 	# 重みベクター初期化
 	if true:
@@ -62,12 +64,15 @@ func init():
 		vec_weight[0] = -2.0
 		vec_weight[1] = 1.0
 		vec_weight[2] = 1.0
+	$ItrLabel.text = "Iteration: 0"
 	$WeightLabel.text = "[b, w1, w2]: [%.3f, %.3f, %.3f]" % vec_weight
 	$GraphRect.vec_weight = vec_weight
 	$GraphRect.queue_redraw()
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if n_train > 0:
+		n_iteration += 1
+		$ItrLabel.text = "Iteration: %d" % n_iteration
 		n_train -= 1
 		do_train()
 	pass
@@ -116,6 +121,9 @@ func _on_train_1_button_pressed():
 func _on_train_100_button_pressed():
 	n_train = 100
 	pass # Replace with function body.
+func _on_train_1000_button_pressed():
+	n_train = 1000
+	pass # Replace with function body.
 
 
 func _on_operator_button_item_selected(index):
@@ -123,5 +131,7 @@ func _on_operator_button_item_selected(index):
 	$GraphRect.ope = ope
 	$GraphRect.queue_redraw()
 	pass # Replace with function body.
+
+
 
 
