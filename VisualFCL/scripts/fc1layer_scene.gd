@@ -13,7 +13,8 @@ var n_train
 var n_batch
 var sumLoss
 var fcl
-var vec_weight = [0.0, 0.7, 0.7]			# [b, w1, w2] 重みベクター
+var vec_weight = [0.0, 0.7, 0.7]		# [b, w1, w2] 重みベクター
+var vec_grad							# 勾配合計
 
 # ２入力１出力総結合層クラス
 # 活性化関数：シグモイド固定
@@ -26,11 +27,22 @@ class FCLayer21:
 		vec_weight[2] = sin(th)
 	func sigmoid(x): return 1.0/(1.0 + exp(-x))
 	func forward(inp: Array):
-		a = vec_weight[0] + vec_weight[0]*inp[0] + vec_weight[0]*inp[1]
+		a = vec_weight[0] + vec_weight[1]*inp[0] + vec_weight[2]*inp[1]
 		y = sigmoid(a)
-	var a
-	var y
-	var vec_weight = [0.0, 0.7, 0.7]			# [b, w1, w2] 重みベクター
+		print("a = ", a, ", y = ", y)
+	func backward(inp: Array, grad: float):
+		upgrad = []		# 上流勾配
+		var dyda = y * (1.0 - y)
+		var dydag = dyda * grad
+		print("∂L/∂y = ", grad)
+		print("∂y/∂a = ", dyda)
+		upgrad.push_back(dydag)
+		upgrad.push_back(dydag * inp[0])
+		upgrad.push_back(dydag * inp[1])
+	var a			# a = b + w1*x1 + w2*x2
+	var y			# y = af(a)、af はシグモイド関数固定
+	var vec_weight = [0.0, 0.0, 0.0]	# [b, w1, w2] 重みベクター
+	var upgrad							# 上流勾配
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -40,10 +52,15 @@ func _ready():
 func init():
 	round = 0
 	# 重みベクター初期化
-	vec_weight[0] = sin(randf_range(0.0, 2*PI))
-	var th = randf_range(0.0, 2*PI)
-	vec_weight[1] = cos(th)
-	vec_weight[2] = sin(th)
+	if true:
+		vec_weight[0] = sin(randf_range(0.0, 2*PI))
+		var th = randf_range(0.0, 2*PI)
+		vec_weight[1] = cos(th)
+		vec_weight[2] = sin(th)
+	else:		# for Debug
+		vec_weight[0] = -2.0
+		vec_weight[1] = 1.0
+		vec_weight[2] = 1.0
 	$WeightLabel.text = "[b, w1, w2]: [%.3f, %.3f, %.3f]" % vec_weight
 	$GraphRect.vec_weight = vec_weight
 	$GraphRect.queue_redraw()
@@ -53,7 +70,7 @@ func _process(delta):
 func _on_init_button_pressed():
 	init()
 	pass # Replace with function body.
-func teacher_val(inp:Array):
+func teacher_value(inp:Array):
 	if ope == OP_AND: return 1.0 if inp[0] != 0 && inp[1] != 0.0 else 0.0		# AND
 	elif ope == OP_OR: return 1.0 if inp[0] != 0 || inp[1] != 0.0 else 0.0		# OR
 	elif ope == OP_NAND: return 0.0 if inp[0] != 0 && inp[1] != 0.0 else 1.0		# NAND
@@ -64,18 +81,31 @@ func teacher_val(inp:Array):
 func train(inp:Array):
 	n_batch += 1
 	fcl.forward(inp)
-	var t = teacher_val(inp)
+	var t = teacher_value(inp)
 	var d = fcl.y - t
 	var L = d * d / 2
 	sumLoss += L
+	fcl.backward(inp, d)
+	vec_grad[0] += fcl.upgrad[0]
+	vec_grad[1] += fcl.upgrad[1]
+	vec_grad[2] += fcl.upgrad[2]
 func do_train():
+	vec_grad = [0.0, 0.0, 0.0]
 	sumLoss = 0.0
 	n_batch = 0
 	fcl.vec_weight = vec_weight
 	for i in range(boolean_pos.size()):
 		train(boolean_pos[i])
+	#train([1.0, 1.0])
 	print("sumLoss = ", sumLoss)
 	$LossLabel.text = "Loss: %.3f" % (sumLoss/n_batch)
+	print("vec_grad = ", vec_grad)
+	vec_weight[0] -= ALPHA * vec_grad[0]
+	vec_weight[1] -= ALPHA * vec_grad[1]
+	vec_weight[2] -= ALPHA * vec_grad[2]
+	$WeightLabel.text = "[b, w1, w2]: [%.3f, %.3f, %.3f]" % vec_weight
+	$GraphRect.vec_weight = vec_weight
+	$GraphRect.queue_redraw()
 func _on_train_1_button_pressed():
 	do_train()
 	pass # Replace with function body.

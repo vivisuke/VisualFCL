@@ -83,7 +83,7 @@ func draw_div_line(p: Array):
 	var b  = p[0]
 	var w1 = p[1]
 	var w2 = p[2]
-	print("w1, w2, b = ", w1, " ", w2, " ", b)
+	print("b, w1, w2 = ", b, " ", w2, " ", w2)
 	print("-w1/w2 = ", -w1/w2)
 	print("-b/w2 = ", -b/w2)
 	var lst = []
