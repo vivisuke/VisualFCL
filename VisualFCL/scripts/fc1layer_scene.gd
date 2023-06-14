@@ -9,7 +9,7 @@ const boolean_pos = [[0, 0], [1, 0], [0, 1], [1, 1]]
 var ALPHA = 0.1			# 学習率
 var round = 0						# ラウンド数
 var ope = OP_AND
-var n_train
+var n_train = 0
 var n_batch
 var sumLoss
 var fcl
@@ -51,6 +51,7 @@ func _ready():
 	pass # Replace with function body.
 func init():
 	round = 0
+	n_train = 0
 	# 重みベクター初期化
 	if true:
 		vec_weight[0] = sin(randf_range(0.0, 2*PI))
@@ -66,6 +67,9 @@ func init():
 	$GraphRect.queue_redraw()
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if n_train > 0:
+		n_train -= 1
+		do_train()
 	pass
 func _on_init_button_pressed():
 	init()
@@ -109,6 +113,9 @@ func do_train():
 func _on_train_1_button_pressed():
 	do_train()
 	pass # Replace with function body.
+func _on_train_100_button_pressed():
+	n_train = 100
+	pass # Replace with function body.
 
 
 func _on_operator_button_item_selected(index):
@@ -116,3 +123,5 @@ func _on_operator_button_item_selected(index):
 	$GraphRect.ope = ope
 	$GraphRect.queue_redraw()
 	pass # Replace with function body.
+
+

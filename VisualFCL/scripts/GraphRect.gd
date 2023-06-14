@@ -79,7 +79,7 @@ func _process(delta):
 func posToScreenPos(pos : Vector2) -> Vector2:
 	return Vector2(ORG_X + (pos.x/maxv) * (GRAPH_WD/2), ORG_Y - (pos.y/maxv) * (GRAPH_HT/2))
 # f(x, y) = b + w1*x + w2*y = 0 の直線描画
-func draw_div_line(p: Array):
+func draw_div_line(p: Array, dashed: bool):
 	var b  = p[0]
 	var w1 = p[1]
 	var w2 = p[2]
@@ -96,10 +96,13 @@ func draw_div_line(p: Array):
 	y = (w1*maxv - b) / w2	# x == -maxv との接線
 	if y > -maxv && y < maxv: lst.push_back(Vector2(-maxv, y))
 	if lst.size() == 2:
-		var col = Color.BLUE if w2 > 0 else Color.RED
+		var col = (Color.BLUE if w2 > 0 else Color.RED) if !dashed else Color.BLACK
 		var p1 = posToScreenPos(lst[0])
 		var p2 = posToScreenPos(lst[1])
-		draw_line(p1, p2, col)
+		if !dashed:
+			draw_line(p1, p2, col)
+		else:
+			draw_dashed_line(p1, p2, col)
 	pass
 func plot_boolean_sub(pos:Vector2):
 	var b = 0
@@ -164,6 +167,11 @@ func _draw():
 	#
 	plot_boolean()
 	#
-	draw_div_line(vec_weight)
+	draw_div_line(vec_weight, false)
+	var v = vec_weight.duplicate()
+	v[0] += 1.0
+	draw_div_line(v, true)
+	v[0] -= 2.0
+	draw_div_line(v, true)
 	pass
 	
