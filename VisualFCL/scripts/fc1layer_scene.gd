@@ -4,6 +4,8 @@ enum {
 	OP_AND = 0, OP_OR, OP_NAND,
 	OP_GT,		# x1 > x2
 	OP_XOR,
+	#
+	LU_MINI_BATCH = 0, LU_ONLINE, LU_RANDOM_8,
 }
 const boolean_pos = [[0, 0], [1, 0], [0, 1], [1, 1]]
 var ALPHA = 0.1			# 学習率
@@ -12,6 +14,7 @@ var ope = OP_AND
 var n_train = 0
 var n_iteration = 0					# イテレーション数
 var n_batch
+var learn_unit = LU_MINI_BATCH
 var sumLoss
 var fcl
 var vec_weight = [0.0, 0.7, 0.7]	# [b, w1, w2] 重みベクター
@@ -103,9 +106,16 @@ func do_train():
 	sumLoss = 0.0
 	n_batch = 0
 	fcl.vec_weight = vec_weight
-	for i in range(boolean_pos.size()):
-		train(boolean_pos[i])
-	#train([1.0, 1.0])
+	if learn_unit == LU_MINI_BATCH:		# ミニバッチ学習
+		for i in range(boolean_pos.size()):
+			train(boolean_pos[i])
+	elif learn_unit == LU_ONLINE:			# オンライン学習
+		var r = randi_range(0, boolean_pos.size()-1)
+		train(boolean_pos[r])
+	else:
+		for i in range(8):
+			var r = randi_range(0, boolean_pos.size()-1)
+			train(boolean_pos[r])
 	print("sumLoss = ", sumLoss)
 	$LossLabel.text = "Loss: %.3f" % (sumLoss/n_batch)
 	print("vec_grad = ", vec_grad)
@@ -124,14 +134,11 @@ func _on_train_100_button_pressed():
 func _on_train_500_button_pressed():
 	n_train = 500
 	pass # Replace with function body.
-
-
 func _on_operator_button_item_selected(index):
 	ope = index
 	$GraphRect.ope = ope
 	$GraphRect.queue_redraw()
 	pass # Replace with function body.
-
-
-
-
+func _on_learn_unit_button_item_selected(index):
+	learn_unit = index
+	pass # Replace with function body.
