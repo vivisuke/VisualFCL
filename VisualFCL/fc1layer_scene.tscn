@@ -160,6 +160,21 @@ text = "学習単位: "
 horizontal_alignment = 2
 vertical_alignment = 1
 
+[node name="LearningRate" type="LineEdit" parent="."]
+offset_left = 1011.0
+offset_top = 325.0
+offset_right = 1136.0
+offset_bottom = 356.0
+text = "0.1"
+
+[node name="Label" type="Label" parent="LearningRate"]
+offset_left = -91.0
+offset_bottom = 31.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "学習率: "
+horizontal_alignment = 2
+vertical_alignment = 1
+
 [connection signal="pressed" from="InitButton" to="." method="_on_init_button_pressed"]
 [connection signal="pressed" from="Train1Button" to="." method="_on_train_1_button_pressed"]
 [connection signal="pressed" from="Train100Button" to="." method="_on_train_100_button_pressed"]
