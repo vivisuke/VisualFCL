@@ -83,35 +83,35 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "※ 教師値: t = x1 op x2"
 
 [node name="InitButton" type="Button" parent="."]
-offset_left = 1011.0
+offset_left = 1010.0
 offset_top = 75.0
 offset_right = 1136.0
 offset_bottom = 106.0
 text = "Init"
 
 [node name="Train1Button" type="Button" parent="."]
-offset_left = 1011.0
+offset_left = 1010.0
 offset_top = 125.0
 offset_right = 1136.0
 offset_bottom = 156.0
 text = "Train 1 Step"
 
 [node name="Train100Button" type="Button" parent="."]
-offset_left = 1011.0
+offset_left = 1010.0
 offset_top = 175.0
 offset_right = 1136.0
 offset_bottom = 206.0
 text = "Train 100s"
 
 [node name="Train500Button" type="Button" parent="."]
-offset_left = 1011.0
+offset_left = 1010.0
 offset_top = 225.0
 offset_right = 1136.0
 offset_bottom = 256.0
 text = "Train 500s"
 
 [node name="OperatorButton" type="OptionButton" parent="."]
-offset_left = 1011.0
+offset_left = 1010.0
 offset_top = 275.0
 offset_right = 1136.0
 offset_bottom = 306.0
@@ -141,7 +141,7 @@ vertical_alignment = 1
 [node name="LearnUnitButton" type="OptionButton" parent="."]
 offset_left = 1010.0
 offset_top = 325.0
-offset_right = 1136.0
+offset_right = 1137.0
 offset_bottom = 356.0
 item_count = 3
 selected = 0
@@ -162,9 +162,9 @@ horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="LearningRate" type="LineEdit" parent="."]
-offset_left = 1011.0
+offset_left = 1010.0
 offset_top = 375.0
-offset_right = 1136.0
+offset_right = 1137.0
 offset_bottom = 406.0
 text = "0.1"
 
@@ -178,9 +178,9 @@ horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="TopButton" type="Button" parent="."]
-offset_left = 1011.0
+offset_left = 1010.0
 offset_top = 25.0
-offset_right = 1136.0
+offset_right = 1135.0
 offset_bottom = 56.0
 text = "Top"
 

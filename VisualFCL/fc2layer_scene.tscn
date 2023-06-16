@@ -48,4 +48,20 @@ offset_right = 1136.0
 offset_bottom = 56.0
 text = "Top"
 
+[node name="InitButton" type="Button" parent="."]
+offset_left = 1010.0
+offset_top = 75.0
+offset_right = 1136.0
+offset_bottom = 106.0
+text = "Init"
+
+[node name="Train1Button" type="Button" parent="."]
+offset_left = 1010.0
+offset_top = 125.0
+offset_right = 1136.0
+offset_bottom = 156.0
+text = "Train 1 Step"
+
 [connection signal="pressed" from="TopButton" to="." method="_on_top_button_pressed"]
+[connection signal="pressed" from="InitButton" to="." method="_on_init_button_pressed"]
+[connection signal="pressed" from="Train1Button" to="." method="_on_train_1_button_pressed"]

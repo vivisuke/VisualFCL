@@ -11,17 +11,17 @@ offset_bottom = 648.0
 color = Color(0.941176, 0.941176, 0.941176, 1)
 
 [node name="SingleLayerNNButton" type="Button" parent="."]
-offset_left = 983.0
-offset_top = 29.0
-offset_right = 1127.0
-offset_bottom = 60.0
+offset_left = 1010.0
+offset_top = 25.0
+offset_right = 1135.0
+offset_bottom = 56.0
 text = "単層NN"
 
 [node name="TwoLayerNNButton" type="Button" parent="."]
-offset_left = 983.0
-offset_top = 79.0
-offset_right = 1127.0
-offset_bottom = 110.0
+offset_left = 1010.0
+offset_top = 83.0
+offset_right = 1135.0
+offset_bottom = 114.0
 text = "２層NN"
 
 [connection signal="pressed" from="SingleLayerNNButton" to="." method="_on_single_layer_nn_button_pressed"]

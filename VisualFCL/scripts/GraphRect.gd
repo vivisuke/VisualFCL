@@ -43,7 +43,7 @@ var uniform_range = 0.02					# 一様分布範囲
 var vec_weight = [-1.0, 1.0, 1.0]			# [b, w1, w2] 重みベクター
 var vv_weight = []							# [[b, w1, w2], [b, w1, w2], ...] 重みベクターリスト
 var axis_labels = []
-var points = []								# 入力データ配列
+var vec_input = []							# 入力データ配列, [x1, y1, bool]
 
 # 目盛り値ラベル設置
 func add_axis_scale(pos, txt):
@@ -55,7 +55,7 @@ func add_axis_scale(pos, txt):
 	return lbl
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	print(self.size)
+	#print(self.size)
 	# デフォルト重みベクター初期化
 	vec_weight[0] = sin(randf_range(0.0, 2*PI))
 	var th = randf_range(0.0, 2*PI)
@@ -87,9 +87,9 @@ func draw_div_line(p: Array, dashed: bool):
 	var b  = p[0]
 	var w1 = p[1]
 	var w2 = p[2]
-	print("b, w1, w2 = ", b, " ", w2, " ", w2)
-	print("-w1/w2 = ", -w1/w2)
-	print("-b/w2 = ", -b/w2)
+	#print("b, w1, w2 = ", b, " ", w2, " ", w2)
+	#print("-w1/w2 = ", -w1/w2)
+	#print("-b/w2 = ", -b/w2)
 	var lst = []
 	var x = (-w2*maxv - b) / w1	# y == maxv との接線
 	if x >= -maxv && x <= maxv: lst.push_back(Vector2(x, maxv))
@@ -127,10 +127,11 @@ func plot_boolean():
 	#draw_circle(posToScreenPos(Vector2(0, 1)), 4.0, Color.BLACK)
 	#draw_circle(posToScreenPos(Vector2(1, 1)), 4.0, Color.BLACK)
 func plot_points():
-	for i in range(points.size()):
-		var x = points[i][0]
-		var y = points[i][1]
-		draw_circle(posToScreenPos(Vector2(x, y)), 4.0, Color.BLACK)
+	for i in range(vec_input.size()):
+		var x = vec_input[i][0]
+		var y = vec_input[i][1]
+		var col = Color.BLACK if vec_input[i][2] else Color.DARK_GRAY
+		draw_circle(posToScreenPos(Vector2(x, y)), 4.0, col)
 func _draw():
 	print("draw()")
 	# 背景＋影 描画
@@ -169,7 +170,10 @@ func _draw():
 	axis_labels[5].text = "-%.1f" % (maxv/2)
 	axis_labels[6].text = "%.1f" % maxv
 	#
-	plot_boolean()
+	if vec_input.is_empty():
+		plot_boolean()
+	else:
+		plot_points()
 	#
 	for i in range(vv_weight.size()):
 		var vw = vv_weight[i]
