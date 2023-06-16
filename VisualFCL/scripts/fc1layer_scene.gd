@@ -69,7 +69,8 @@ func init():
 		vec_weight[2] = 1.0
 	$ItrLabel.text = "Iteration: 0"
 	$WeightLabel.text = "[b, w1, w2]: [%.3f, %.3f, %.3f]" % vec_weight
-	$GraphRect.vec_weight = vec_weight
+	#$GraphRect.vec_weight = vec_weight
+	$GraphRect.vv_weight = [vec_weight]
 	$GraphRect.queue_redraw()
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -123,7 +124,8 @@ func do_train():
 	vec_weight[1] -= ALPHA * vec_grad[1]
 	vec_weight[2] -= ALPHA * vec_grad[2]
 	$WeightLabel.text = "[b, w1, w2]: [%.3f, %.3f, %.3f]" % vec_weight
-	$GraphRect.vec_weight = vec_weight
+	#$GraphRect.vec_weight = vec_weight
+	$GraphRect.vv_weight = [vec_weight]
 	$GraphRect.queue_redraw()
 func _on_train_1_button_pressed():
 	ALPHA = float($LearningRate.text)
@@ -144,4 +146,7 @@ func _on_operator_button_item_selected(index):
 	pass # Replace with function body.
 func _on_learn_unit_button_item_selected(index):
 	learn_unit = index
+	pass # Replace with function body.
+func _on_top_button_pressed():
+	get_tree().change_scene_to_file("res://top_scene.tscn")
 	pass # Replace with function body.

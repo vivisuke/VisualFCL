@@ -14,23 +14,24 @@ enum {
 	OP_GT,		# x1 > x2
 	OP_XOR,
 }
-const SCREEN_WD = 600.0
-const SCREEN_HT = 600.0
+var SZ = self.size
+var SCREEN_WD = SZ.x
+var SCREEN_HT = SZ.y
 const SPACE_TOP = 20.0
 const SPACE_BOTTOM = 40.0
 const SPACE_LEFT = 40.0
-const GRAPH_HT = SCREEN_HT - (SPACE_TOP + SPACE_BOTTOM)
-const GRAPH_WD = GRAPH_HT
+var GRAPH_HT = SCREEN_HT - (SPACE_TOP + SPACE_BOTTOM)
+var GRAPH_WD = GRAPH_HT
 const SCALE_WD = 6				# 目盛り幅
 const LLT = 8
 const LT = SPACE_LEFT
-const RT = SPACE_LEFT + GRAPH_WD
+var RT = SPACE_LEFT + GRAPH_WD
 const TOP = SPACE_TOP
-const BTM = SPACE_TOP + GRAPH_HT
+var BTM = SPACE_TOP + GRAPH_HT
 const BTM_OFST = 12
 const LT_OFST = 12
-const ORG_X = SPACE_LEFT + GRAPH_WD/2
-const ORG_Y = SPACE_TOP + GRAPH_HT/2
+var ORG_X = SPACE_LEFT + GRAPH_WD/2
+var ORG_Y = SPACE_TOP + GRAPH_HT/2
 
 var dispersion = DSP_001					# 重み分散、0.01 | Xavier | He
 var distribution = UNIFORM_DISTRIBUTION		# 分布
@@ -38,8 +39,9 @@ var maxv = 2.0								# グラフ範囲
 var ope = OP_AND
 var n_output_node = 1						# 出力ノード数
 var uniform_range = 0.02					# 一様分布範囲
-var param_lst = []							
+#var param_lst = []							
 var vec_weight = [-1.0, 1.0, 1.0]			# [b, w1, w2] 重みベクター
+var vv_weight = []							# [[b, w1, w2], [b, w1, w2], ...] 重みベクターリスト
 var axis_labels = []
 var points = []								# 入力データ配列
 
@@ -53,11 +55,13 @@ func add_axis_scale(pos, txt):
 	return lbl
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	print(self.size)
 	# デフォルト重みベクター初期化
 	vec_weight[0] = sin(randf_range(0.0, 2*PI))
 	var th = randf_range(0.0, 2*PI)
 	vec_weight[1] = cos(th)
 	vec_weight[2] = sin(th)
+	vv_weight.push_back(vec_weight)
 	# 目盛り値ラベル設置
 	add_axis_scale(Vector2(ORG_X-BTM_OFST, BTM), "0.0")
 	axis_labels.push_back(add_axis_scale(Vector2(ORG_X+GRAPH_WD/4-BTM_OFST, BTM), "%.1f" % (maxv/2)))
@@ -167,11 +171,13 @@ func _draw():
 	#
 	plot_boolean()
 	#
-	draw_div_line(vec_weight, false)
-	var v = vec_weight.duplicate()
-	v[0] += 1.0
-	draw_div_line(v, true)
-	v[0] -= 2.0
-	draw_div_line(v, true)
+	for i in range(vv_weight.size()):
+		var vw = vv_weight[i]
+		draw_div_line(vw, false)
+		var v = vw.duplicate()
+		v[0] += 1.0
+		draw_div_line(v, true)
+		v[0] -= 2.0
+		draw_div_line(v, true)
 	pass
 	

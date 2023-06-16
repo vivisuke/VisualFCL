@@ -1,0 +1,28 @@
+[gd_scene load_steps=2 format=3 uid="uid://bhn16u7hhqek5"]
+
+[ext_resource type="Script" path="res://scripts/top_scene.gd" id="1_8gowc"]
+
+[node name="TopScene" type="Node2D"]
+script = ExtResource("1_8gowc")
+
+[node name="BG" type="ColorRect" parent="."]
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0.941176, 0.941176, 0.941176, 1)
+
+[node name="SingleLayerNNButton" type="Button" parent="."]
+offset_left = 983.0
+offset_top = 29.0
+offset_right = 1127.0
+offset_bottom = 60.0
+text = "単層NN"
+
+[node name="TwoLayerNNButton" type="Button" parent="."]
+offset_left = 983.0
+offset_top = 79.0
+offset_right = 1127.0
+offset_bottom = 110.0
+text = "２層NN"
+
+[connection signal="pressed" from="SingleLayerNNButton" to="." method="_on_single_layer_nn_button_pressed"]
+[connection signal="pressed" from="TwoLayerNNButton" to="." method="_on_two_layer_nn_button_pressed"]

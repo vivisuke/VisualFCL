@@ -84,37 +84,37 @@ text = "※ 教師値: t = x1 op x2"
 
 [node name="InitButton" type="Button" parent="."]
 offset_left = 1011.0
-offset_top = 25.0
+offset_top = 75.0
 offset_right = 1136.0
-offset_bottom = 56.0
+offset_bottom = 106.0
 text = "Init"
 
 [node name="Train1Button" type="Button" parent="."]
 offset_left = 1011.0
-offset_top = 75.0
+offset_top = 125.0
 offset_right = 1136.0
-offset_bottom = 106.0
+offset_bottom = 156.0
 text = "Train 1 Step"
 
 [node name="Train100Button" type="Button" parent="."]
 offset_left = 1011.0
-offset_top = 125.0
+offset_top = 175.0
 offset_right = 1136.0
-offset_bottom = 156.0
+offset_bottom = 206.0
 text = "Train 100s"
 
 [node name="Train500Button" type="Button" parent="."]
 offset_left = 1011.0
-offset_top = 175.0
+offset_top = 225.0
 offset_right = 1136.0
-offset_bottom = 206.0
+offset_bottom = 256.0
 text = "Train 500s"
 
 [node name="OperatorButton" type="OptionButton" parent="."]
 offset_left = 1011.0
-offset_top = 225.0
+offset_top = 275.0
 offset_right = 1136.0
-offset_bottom = 256.0
+offset_bottom = 306.0
 item_count = 5
 selected = 0
 popup/item_0/text = "AND"
@@ -140,9 +140,9 @@ vertical_alignment = 1
 
 [node name="LearnUnitButton" type="OptionButton" parent="."]
 offset_left = 1010.0
-offset_top = 275.0
+offset_top = 325.0
 offset_right = 1136.0
-offset_bottom = 306.0
+offset_bottom = 356.0
 item_count = 3
 selected = 0
 popup/item_0/text = "Mini Batch"
@@ -153,6 +153,7 @@ popup/item_2/text = "Random 8"
 popup/item_2/id = 2
 
 [node name="Label" type="Label" parent="LearnUnitButton"]
+layout_mode = 0
 offset_left = -91.0
 offset_bottom = 31.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -162,12 +163,13 @@ vertical_alignment = 1
 
 [node name="LearningRate" type="LineEdit" parent="."]
 offset_left = 1011.0
-offset_top = 325.0
+offset_top = 375.0
 offset_right = 1136.0
-offset_bottom = 356.0
+offset_bottom = 406.0
 text = "0.1"
 
 [node name="Label" type="Label" parent="LearningRate"]
+layout_mode = 0
 offset_left = -91.0
 offset_bottom = 31.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -175,9 +177,17 @@ text = "学習率: "
 horizontal_alignment = 2
 vertical_alignment = 1
 
+[node name="TopButton" type="Button" parent="."]
+offset_left = 1011.0
+offset_top = 25.0
+offset_right = 1136.0
+offset_bottom = 56.0
+text = "Top"
+
 [connection signal="pressed" from="InitButton" to="." method="_on_init_button_pressed"]
 [connection signal="pressed" from="Train1Button" to="." method="_on_train_1_button_pressed"]
 [connection signal="pressed" from="Train100Button" to="." method="_on_train_100_button_pressed"]
 [connection signal="pressed" from="Train500Button" to="." method="_on_train_500_button_pressed"]
 [connection signal="item_selected" from="OperatorButton" to="." method="_on_operator_button_item_selected"]
 [connection signal="item_selected" from="LearnUnitButton" to="." method="_on_learn_unit_button_item_selected"]
+[connection signal="pressed" from="TopButton" to="." method="_on_top_button_pressed"]
