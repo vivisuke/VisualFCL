@@ -10,10 +10,14 @@ enum {
 const boolean_pos = [[0, 0], [1, 0], [0, 1], [1, 1]]
 
 var ope = OP_XOR
+var sumLoss = 0
 var vv_weight = []			# 重みベクターリスト、２次元配列
 var vec_first_layer = []	# 1st Layer
 var scnd_layer
 var vec_input_2nd = []
+var vec_grad_11						# 勾配合計
+var vec_grad_12						# 勾配合計
+var vec_grad_2						# 勾配合計
 
 # ２入力１出力総結合層クラス
 # 活性化関数：シグモイド固定
@@ -62,8 +66,11 @@ func teacher_value(inp:Array):
 	elif ope == OP_XOR: return 1.0 if inp[0] != inp[1] else 0.0					# XOR
 	return 0.0
 func update_points_in_2ndLayer():
+	sumLoss = 0.0
+	var n_batch = 0
 	vec_input_2nd = []
 	for i in range(boolean_pos.size()):
+		n_batch += 1
 		vec_first_layer[0].forward(boolean_pos[i])
 		var x1 = vec_first_layer[0].y
 		vec_first_layer[1].forward(boolean_pos[i])
@@ -71,6 +78,10 @@ func update_points_in_2ndLayer():
 		print([x1, x2])
 		var t = teacher_value(boolean_pos[i])
 		vec_input_2nd.push_back([x1, x2, t!=0.0])
+		scnd_layer.forward([x1, x2])
+		var d = scnd_layer.y - t
+		sumLoss += d * d / 2
+	$LossLabel.text = "Loss: %.3f" % (sumLoss/n_batch)
 func init():
 	vec_first_layer = []
 	vec_first_layer.push_back(FC21Unit.new())
@@ -82,29 +93,47 @@ func init():
 		vv_weight.push_back(w)
 		vec_first_layer[i].vec_weight = w
 	update_points_in_2ndLayer()
+	$Weight11Label.text = "[b, w1, w2]: [%.3f, %.3f, %.3f]" % vec_first_layer[0].vec_weight
+	$Weight12Label.text = "[b, w1, w2]: [%.3f, %.3f, %.3f]" % vec_first_layer[1].vec_weight
 	$GraphRect_1.ope = OP_XOR
 	$GraphRect_1.vv_weight = vv_weight
 	$GraphRect_1.queue_redraw()
 	scnd_layer.vec_weight = init_weight()
+	$Weight2Label.text = "[b, w1, w2]: [%.3f, %.3f, %.3f]" % scnd_layer.vec_weight
 	$GraphRect_2.vec_input = vec_input_2nd
 	$GraphRect_2.vv_weight = [scnd_layer.vec_weight]
 	$GraphRect_2.queue_redraw()
-
+func train(inp:Array):
+	vec_first_layer[0].forward(inp)
+	var x1 = vec_first_layer[0].y
+	vec_first_layer[1].forward(inp)
+	var x2 = vec_first_layer[1].y
+	print([x1, x2])
+	var t = teacher_value(inp)
+	vec_input_2nd.push_back([x1, x2, t!=0.0])
+	scnd_layer.forward([x1, x2])
+	var d = scnd_layer.y - t
+	sumLoss += d * d / 2
+	scnd_layer.backward([x1, x2], d)
+	pass
+func do_train():
+	sumLoss = 0.0
+	var n_batch = 0
+	vec_input_2nd = []
+	for i in range(boolean_pos.size()):
+		n_batch += 1
+		train(boolean_pos[i])
+	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
-
-
 func _on_top_button_pressed():
 	get_tree().change_scene_to_file("res://top_scene.tscn")
 	pass # Replace with function body.
-
-
 func _on_init_button_pressed():
 	init()
 	pass # Replace with function body.
-
-
 func _on_train_1_button_pressed():
+	do_train()
 	pass # Replace with function body.
