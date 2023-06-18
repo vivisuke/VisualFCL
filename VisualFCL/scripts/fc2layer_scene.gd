@@ -158,6 +158,7 @@ func train(inp:Array):
 	scnd_layer.backward([x1, x2], d)
 	pass
 func do_train():
+	ALPHA = float($LearningRate.text)
 	for i in range(3):
 		vec_first_layer[0].vec_weight[i] -= vec_grad_11[i] * ALPHA
 		vec_first_layer[1].vec_weight[i] -= vec_grad_12[i] * ALPHA
@@ -192,4 +193,11 @@ func _on_train_100_button_pressed():
 
 func _on_train_500_button_pressed():
 	n_train = 500
+	pass # Replace with function body.
+
+
+func _on_operator_button_item_selected(index):
+	ope = index
+	forward_and_backward()
+	update_view()
 	pass # Replace with function body.

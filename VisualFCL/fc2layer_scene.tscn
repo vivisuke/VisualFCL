@@ -116,8 +116,53 @@ offset_right = 1136.0
 offset_bottom = 256.0
 text = "Train 500s"
 
+[node name="OperatorButton" type="OptionButton" parent="."]
+offset_left = 1010.0
+offset_top = 275.0
+offset_right = 1136.0
+offset_bottom = 306.0
+item_count = 5
+selected = 0
+popup/item_0/text = "AND"
+popup/item_0/id = 0
+popup/item_1/text = "OR"
+popup/item_1/id = 1
+popup/item_2/text = "NAND"
+popup/item_2/id = 2
+popup/item_3/text = "x1 > x2"
+popup/item_3/id = 3
+popup/item_4/text = "XOR"
+popup/item_4/id = 4
+
+[node name="Label" type="Label" parent="OperatorButton"]
+layout_mode = 0
+offset_left = -41.0
+offset_right = -1.0
+offset_bottom = 31.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "op: "
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="LearningRate" type="LineEdit" parent="."]
+offset_left = 1010.0
+offset_top = 375.0
+offset_right = 1137.0
+offset_bottom = 406.0
+text = "0.1"
+
+[node name="Label" type="Label" parent="LearningRate"]
+layout_mode = 0
+offset_left = -91.0
+offset_bottom = 31.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "学習率: "
+horizontal_alignment = 2
+vertical_alignment = 1
+
 [connection signal="pressed" from="TopButton" to="." method="_on_top_button_pressed"]
 [connection signal="pressed" from="InitButton" to="." method="_on_init_button_pressed"]
 [connection signal="pressed" from="Train1Button" to="." method="_on_train_1_button_pressed"]
 [connection signal="pressed" from="Train100Button" to="." method="_on_train_100_button_pressed"]
 [connection signal="pressed" from="Train500Button" to="." method="_on_train_500_button_pressed"]
+[connection signal="item_selected" from="OperatorButton" to="." method="_on_operator_button_item_selected"]
