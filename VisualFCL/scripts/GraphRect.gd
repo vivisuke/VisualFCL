@@ -133,7 +133,7 @@ func plot_points():
 		var col = Color.BLACK if vec_input[i][2] else Color.DARK_GRAY
 		draw_circle(posToScreenPos(Vector2(x, y)), 4.0, col)
 func _draw():
-	print("draw()")
+	#print("draw()")
 	# 背景＋影 描画
 	var style_box = StyleBoxFlat.new()      # 影、ボーダなどを描画するための矩形スタイルオブジェクト
 	style_box.bg_color = Color.WHITE   # 矩形背景色
@@ -151,7 +151,7 @@ func _draw():
 	# 目盛りの描画
 	#for s in range(0.2, 1.0, 0.2):
 	for s in range(25, 100, 25):
-		print(s)
+		#print(s)
 		var d = (s/100.0) * (GRAPH_HT/2)
 		draw_line(Vector2(LT, ORG_Y-d), Vector2(LT+SCALE_WD, ORG_Y-d), Color.BLACK)
 		draw_line(Vector2(RT-SCALE_WD, ORG_Y-d), Vector2(RT, ORG_Y-d), Color.BLACK)

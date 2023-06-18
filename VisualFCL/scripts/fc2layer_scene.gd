@@ -15,9 +15,9 @@ var vv_weight = []			# 重みベクターリスト、２次元配列
 var vec_first_layer = []	# 1st Layer
 var scnd_layer
 var vec_input_2nd = []
-var vec_grad_11						# 勾配合計
-var vec_grad_12						# 勾配合計
-var vec_grad_2						# 勾配合計
+var vec_grad_11				# 勾配合計、[∂L/∂b, ∂L/∂w1, ∂L/∂w2]
+var vec_grad_12				# 勾配合計
+var vec_grad_2				# 勾配合計
 
 # ２入力１出力総結合層クラス
 # 活性化関数：シグモイド固定
@@ -68,7 +68,7 @@ func teacher_value(inp:Array):
 func update_points_in_2ndLayer():
 	sumLoss = 0.0
 	var n_batch = 0
-	vec_input_2nd = []
+	vec_input_2nd = []		# 2nd レイヤー入力
 	for i in range(boolean_pos.size()):
 		n_batch += 1
 		vec_first_layer[0].forward(boolean_pos[i])
@@ -82,6 +82,35 @@ func update_points_in_2ndLayer():
 		var d = scnd_layer.y - t
 		sumLoss += d * d / 2
 	$LossLabel.text = "Loss: %.3f" % (sumLoss/n_batch)
+# forward 計算 → bakward 計算、勾配計算、重みには反映させない
+func forward_and_backward():
+	vec_grad_11 = [0.0, 0.0, 0.0]
+	vec_grad_12 = [0.0, 0.0, 0.0]
+	vec_grad_2 = [0.0, 0.0, 0.0]
+	sumLoss = 0.0
+	var n_batch = 0
+	vec_input_2nd = []		# 2nd レイヤー入力
+	for i in range(boolean_pos.size()):
+		n_batch += 1
+		var bpos = boolean_pos[i]
+		vec_first_layer[0].forward(bpos)
+		var x1 = vec_first_layer[0].y
+		vec_first_layer[1].forward(bpos)
+		var x2 = vec_first_layer[1].y
+		print([x1, x2])
+		var t = teacher_value(bpos)
+		vec_input_2nd.push_back([x1, x2, t!=0.0])
+		scnd_layer.forward([x1, x2])
+		var d = scnd_layer.y - t
+		sumLoss += d * d / 2
+		scnd_layer.backward([x1, x2], d)
+		vec_first_layer[0].backward(bpos, scnd_layer.upgrad[1])
+		vec_first_layer[1].backward(bpos, scnd_layer.upgrad[2])
+		for k in range(3):
+			vec_grad_11[k] += vec_first_layer[0].upgrad[k]
+			vec_grad_12[k] += vec_first_layer[1].upgrad[k]
+			vec_grad_2[k] += scnd_layer.upgrad[k]
+	$LossLabel.text = "Loss: %.3f" % (sumLoss/n_batch)
 func init():
 	vec_first_layer = []
 	vec_first_layer.push_back(FC21Unit.new())
@@ -90,15 +119,22 @@ func init():
 	vv_weight = []
 	for i in range(2):
 		var w = init_weight()
+		#for k in range(3): w[k] *= 3		# for テスト
 		vv_weight.push_back(w)
 		vec_first_layer[i].vec_weight = w
-	update_points_in_2ndLayer()
+	scnd_layer.vec_weight = init_weight()
+	#update_points_in_2ndLayer()
+	forward_and_backward()
+	update_view()
+	print("vec_grad_11 = ", vec_grad_11)
+	print("vec_grad_12 = ", vec_grad_12)
+	print("vec_grad_2 = ", vec_grad_2)
+func update_view():
 	$Weight11Label.text = "[b, w1, w2]: [%.3f, %.3f, %.3f]" % vec_first_layer[0].vec_weight
 	$Weight12Label.text = "[b, w1, w2]: [%.3f, %.3f, %.3f]" % vec_first_layer[1].vec_weight
 	$GraphRect_1.ope = OP_XOR
 	$GraphRect_1.vv_weight = vv_weight
 	$GraphRect_1.queue_redraw()
-	scnd_layer.vec_weight = init_weight()
 	$Weight2Label.text = "[b, w1, w2]: [%.3f, %.3f, %.3f]" % scnd_layer.vec_weight
 	$GraphRect_2.vec_input = vec_input_2nd
 	$GraphRect_2.vv_weight = [scnd_layer.vec_weight]
@@ -117,12 +153,11 @@ func train(inp:Array):
 	scnd_layer.backward([x1, x2], d)
 	pass
 func do_train():
-	sumLoss = 0.0
-	var n_batch = 0
-	vec_input_2nd = []
-	for i in range(boolean_pos.size()):
-		n_batch += 1
-		train(boolean_pos[i])
+	for i in range(3):
+		vec_first_layer[0].vec_weight[i] -= vec_grad_11[i]
+		vec_first_layer[1].vec_weight[i] -= vec_grad_12[i]
+		scnd_layer.vec_weight[i] -= vec_grad_2[i]
+	update_view()
 	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
