@@ -32,6 +32,7 @@ const BTM_OFST = 12
 const LT_OFST = 12
 var ORG_X = SPACE_LEFT + GRAPH_WD/2
 var ORG_Y = SPACE_TOP + GRAPH_HT/2
+const DOT_RADIUS = 4.0
 
 var dispersion = DSP_001					# 重み分散、0.01 | Xavier | He
 var distribution = UNIFORM_DISTRIBUTION		# 分布
@@ -108,6 +109,12 @@ func draw_div_line(p: Array, dashed: bool):
 		else:
 			draw_dashed_line(p1, p2, col)
 	pass
+func dot_plot(pos: Vector2, b: bool):
+	if b:
+		draw_circle(posToScreenPos(pos), DOT_RADIUS, Color.BLACK)
+	else:
+		draw_circle(posToScreenPos(pos), DOT_RADIUS, Color.WHITE)
+		draw_arc(posToScreenPos(pos), DOT_RADIUS, 0.0, 2*PI, 128, Color.BLACK)
 func plot_boolean_sub(pos:Vector2):
 	var b = 0
 	if ope == OP_AND: b = 1.0 if pos.x != 0 && pos.y != 0.0 else 0.0		# AND
@@ -115,8 +122,9 @@ func plot_boolean_sub(pos:Vector2):
 	elif ope == OP_NAND: b = 0.0 if pos.x != 0 && pos.y != 0.0 else 1.0		# NAND
 	elif ope == OP_GT: b = 1.0 if pos.x > pos.y else 0.0					# x1 > x2
 	elif ope == OP_XOR: b = 1.0 if pos.x != pos.y else 0.0					# XOR
-	var col = Color.BLACK if b else Color.DARK_GRAY
-	draw_circle(posToScreenPos(pos), 4.0, col)
+	#var col = Color.BLACK if b else Color.DARK_GRAY
+	#draw_circle(posToScreenPos(pos), 4.0, col)
+	dot_plot(pos, b)
 func plot_boolean():
 	plot_boolean_sub(Vector2(0, 0))
 	plot_boolean_sub(Vector2(1, 0))
@@ -130,10 +138,12 @@ func plot_points():
 	for i in range(vec_input.size()):
 		var x = vec_input[i][0]
 		var y = vec_input[i][1]
-		var col = Color.BLACK if vec_input[i][2] else Color.DARK_GRAY
-		draw_circle(posToScreenPos(Vector2(x, y)), 4.0, col)
+		#var col = Color.BLACK if vec_input[i][2] else Color.DARK_GRAY
+		#draw_circle(posToScreenPos(Vector2(x, y)), 4.0, col)
+		dot_plot(Vector2(x, y), vec_input[i][2])
 func _draw():
-	#print("draw()")
+	print("draw()")
+	print("ope = ", ope)
 	# 背景＋影 描画
 	var style_box = StyleBoxFlat.new()      # 影、ボーダなどを描画するための矩形スタイルオブジェクト
 	style_box.bg_color = Color.WHITE   # 矩形背景色

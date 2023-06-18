@@ -35,13 +35,13 @@ class FC21Unit:
 	func forward(inp: Array):
 		a = vec_weight[0] + vec_weight[1]*inp[0] + vec_weight[2]*inp[1]
 		y = sigmoid(a)
-		print("a = ", a, ", y = ", y)
+		#print("a = ", a, ", y = ", y)
 	func backward(inp: Array, grad: float):
 		upgrad = []		# 上流勾配
 		var dyda = y * (1.0 - y)
 		var dydag = dyda * grad
-		print("∂L/∂y = ", grad)
-		print("∂y/∂a = ", dyda)
+		#print("∂L/∂y = ", grad)
+		#print("∂y/∂a = ", dyda)
 		upgrad.push_back(dydag)
 		upgrad.push_back(dydag * inp[0])
 		upgrad.push_back(dydag * inp[1])
@@ -78,7 +78,7 @@ func update_points_in_2ndLayer():
 		var x1 = vec_first_layer[0].y
 		vec_first_layer[1].forward(boolean_pos[i])
 		var x2 = vec_first_layer[1].y
-		print([x1, x2])
+		#print([x1, x2])
 		var t = teacher_value(boolean_pos[i])
 		vec_input_2nd.push_back([x1, x2, t!=0.0])
 		scnd_layer.forward([x1, x2])
@@ -100,7 +100,7 @@ func forward_and_backward():
 		var x1 = vec_first_layer[0].y
 		vec_first_layer[1].forward(bpos)
 		var x2 = vec_first_layer[1].y
-		print([x1, x2])
+		#print([x1, x2])
 		var t = teacher_value(bpos)
 		vec_input_2nd.push_back([x1, x2, t!=0.0])
 		scnd_layer.forward([x1, x2])
@@ -131,13 +131,13 @@ func init():
 	#update_points_in_2ndLayer()
 	forward_and_backward()
 	update_view()
-	print("vec_grad_11 = ", vec_grad_11)
-	print("vec_grad_12 = ", vec_grad_12)
-	print("vec_grad_2 = ", vec_grad_2)
+	#print("vec_grad_11 = ", vec_grad_11)
+	#print("vec_grad_12 = ", vec_grad_12)
+	#print("vec_grad_2 = ", vec_grad_2)
 func update_view():
 	$Weight11Label.text = "[b, w1, w2]: [%.3f, %.3f, %.3f]" % vec_first_layer[0].vec_weight
 	$Weight12Label.text = "[b, w1, w2]: [%.3f, %.3f, %.3f]" % vec_first_layer[1].vec_weight
-	$GraphRect_1.ope = OP_XOR
+	$GraphRect_1.ope = ope
 	$GraphRect_1.vv_weight = vv_weight
 	$GraphRect_1.queue_redraw()
 	$Weight2Label.text = "[b, w1, w2]: [%.3f, %.3f, %.3f]" % scnd_layer.vec_weight
@@ -149,7 +149,7 @@ func train(inp:Array):
 	var x1 = vec_first_layer[0].y
 	vec_first_layer[1].forward(inp)
 	var x2 = vec_first_layer[1].y
-	print([x1, x2])
+	#print([x1, x2])
 	var t = teacher_value(inp)
 	vec_input_2nd.push_back([x1, x2, t!=0.0])
 	scnd_layer.forward([x1, x2])
@@ -187,17 +187,19 @@ func _on_train_1_button_pressed():
 
 
 func _on_train_100_button_pressed():
-	n_train = 100
+	n_train += 100
 	pass # Replace with function body.
 
 
 func _on_train_500_button_pressed():
-	n_train = 500
+	n_train += 500
 	pass # Replace with function body.
 
 
 func _on_operator_button_item_selected(index):
 	ope = index
+	#$GraphRect_1.ope = index
+	#$GraphRect_2.ope = index
 	forward_and_backward()
 	update_view()
 	pass # Replace with function body.
