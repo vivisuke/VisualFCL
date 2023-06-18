@@ -9,12 +9,15 @@ enum {
 }
 const boolean_pos = [[0, 0], [1, 0], [0, 1], [1, 1]]
 
+var ALPHA = 0.1				# 学習率
 var ope = OP_XOR
+var n_train = 0
+var n_iteration = 0			# イテレーション数
 var sumLoss = 0
 var vv_weight = []			# 重みベクターリスト、２次元配列
 var vec_first_layer = []	# 1st Layer
 var scnd_layer
-var vec_input_2nd = []
+var vec_input_2nd = []		# 2nd レイヤー入力
 var vec_grad_11				# 勾配合計、[∂L/∂b, ∂L/∂w1, ∂L/∂w2]
 var vec_grad_12				# 勾配合計
 var vec_grad_2				# 勾配合計
@@ -112,6 +115,8 @@ func forward_and_backward():
 			vec_grad_2[k] += scnd_layer.upgrad[k]
 	$LossLabel.text = "Loss: %.3f" % (sumLoss/n_batch)
 func init():
+	n_iteration = 0
+	$ItrLabel.text = "Iteration: %d" % n_iteration
 	vec_first_layer = []
 	vec_first_layer.push_back(FC21Unit.new())
 	vec_first_layer.push_back(FC21Unit.new())
@@ -154,14 +159,20 @@ func train(inp:Array):
 	pass
 func do_train():
 	for i in range(3):
-		vec_first_layer[0].vec_weight[i] -= vec_grad_11[i]
-		vec_first_layer[1].vec_weight[i] -= vec_grad_12[i]
-		scnd_layer.vec_weight[i] -= vec_grad_2[i]
+		vec_first_layer[0].vec_weight[i] -= vec_grad_11[i] * ALPHA
+		vec_first_layer[1].vec_weight[i] -= vec_grad_12[i] * ALPHA
+		scnd_layer.vec_weight[i] -= vec_grad_2[i] * ALPHA
+	forward_and_backward()
 	update_view()
 	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if n_train > 0:
+		n_iteration += 1
+		$ItrLabel.text = "Iteration: %d" % n_iteration
+		n_train -= 1
+		do_train()
 	pass
 func _on_top_button_pressed():
 	get_tree().change_scene_to_file("res://top_scene.tscn")
@@ -171,4 +182,14 @@ func _on_init_button_pressed():
 	pass # Replace with function body.
 func _on_train_1_button_pressed():
 	do_train()
+	pass # Replace with function body.
+
+
+func _on_train_100_button_pressed():
+	n_train = 100
+	pass # Replace with function body.
+
+
+func _on_train_500_button_pressed():
+	n_train = 500
 	pass # Replace with function body.

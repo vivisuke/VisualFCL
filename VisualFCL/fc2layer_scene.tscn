@@ -87,13 +87,37 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "[b, w1, w2]: [0, 0, 0]"
 
 [node name="LossLabel" type="Label" parent="."]
-offset_left = 855.0
-offset_top = 522.0
-offset_right = 940.0
-offset_bottom = 548.0
+offset_left = 941.0
+offset_top = 548.0
+offset_right = 1026.0
+offset_bottom = 574.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Loss = N/A"
+
+[node name="Train100Button" type="Button" parent="."]
+offset_left = 1010.0
+offset_top = 175.0
+offset_right = 1136.0
+offset_bottom = 206.0
+text = "Train 100s"
+
+[node name="ItrLabel" type="Label" parent="."]
+offset_left = 941.0
+offset_top = 522.0
+offset_right = 1026.0
+offset_bottom = 548.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Iteration: 0"
+
+[node name="Train500Button" type="Button" parent="."]
+offset_left = 1010.0
+offset_top = 225.0
+offset_right = 1136.0
+offset_bottom = 256.0
+text = "Train 500s"
 
 [connection signal="pressed" from="TopButton" to="." method="_on_top_button_pressed"]
 [connection signal="pressed" from="InitButton" to="." method="_on_init_button_pressed"]
 [connection signal="pressed" from="Train1Button" to="." method="_on_train_1_button_pressed"]
+[connection signal="pressed" from="Train100Button" to="." method="_on_train_100_button_pressed"]
+[connection signal="pressed" from="Train500Button" to="." method="_on_train_500_button_pressed"]
