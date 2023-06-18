@@ -47,7 +47,7 @@ var axis_labels = []
 var vec_input = []							# 入力データ配列, [x1, y1, bool]
 
 # 目盛り値ラベル設置
-func add_axis_scale(pos, txt):
+func add_axis_label(pos, txt):
 	var lbl = Label.new()
 	lbl.add_theme_color_override("font_color", Color.BLACK)
 	lbl.text = txt
@@ -64,15 +64,20 @@ func _ready():
 	vec_weight[2] = sin(th)
 	vv_weight.push_back(vec_weight)
 	# 目盛り値ラベル設置
-	add_axis_scale(Vector2(ORG_X-BTM_OFST, BTM), "0.0")
-	axis_labels.push_back(add_axis_scale(Vector2(ORG_X+GRAPH_WD/4-BTM_OFST, BTM), "%.1f" % (maxv/2)))
-	axis_labels.push_back(add_axis_scale(Vector2(RT-BTM_OFST, BTM), "%.1f" % maxv))
-	axis_labels.push_back(add_axis_scale(Vector2(ORG_X-GRAPH_WD/4-BTM_OFST, BTM), "-%.1f" % (maxv/2)))
-	axis_labels.push_back(add_axis_scale(Vector2(LT-BTM_OFST, BTM), "-%.1f" % maxv))
-	add_axis_scale(Vector2(LLT, ORG_Y-LT_OFST), "0.0")
-	axis_labels.push_back(add_axis_scale(Vector2(LLT, ORG_Y-GRAPH_HT/4-LT_OFST), "%.1f" % (maxv/2)))
-	axis_labels.push_back(add_axis_scale(Vector2(LLT, ORG_Y+GRAPH_HT/4-LT_OFST), "-%.1f" % (maxv/2)))
-	axis_labels.push_back(add_axis_scale(Vector2(LLT, TOP-LT_OFST), "%.1f" % maxv))
+	add_axis_label(Vector2(ORG_X-BTM_OFST, BTM), "0.0")
+	axis_labels.push_back(add_axis_label(Vector2(ORG_X+GRAPH_WD/4-BTM_OFST, BTM), "%.1f" % (maxv/2)))
+	axis_labels.push_back(add_axis_label(Vector2(RT-BTM_OFST, BTM), "%.1f" % maxv))
+	axis_labels.push_back(add_axis_label(Vector2(ORG_X-GRAPH_WD/4-BTM_OFST, BTM), "-%.1f" % (maxv/2)))
+	axis_labels.push_back(add_axis_label(Vector2(LT-BTM_OFST, BTM), "-%.1f" % maxv))
+	add_axis_label(Vector2(LLT, ORG_Y-LT_OFST), "0.0")
+	axis_labels.push_back(add_axis_label(Vector2(LLT, ORG_Y-GRAPH_HT/4-LT_OFST), "%.1f" % (maxv/2)))
+	axis_labels.push_back(add_axis_label(Vector2(LLT, ORG_Y+GRAPH_HT/4-LT_OFST), "-%.1f" % (maxv/2)))
+	axis_labels.push_back(add_axis_label(Vector2(LLT, TOP-LT_OFST), "%.1f" % maxv))
+	# "x1", "x2" 表示
+	add_axis_label(Vector2(RT-BTM_OFST*2, ORG_Y), "x1")
+	add_axis_label(Vector2(ORG_X+4, TOP), "x2")
+
+	
 	#
 	pass
 
