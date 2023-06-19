@@ -31,7 +31,7 @@ func _process(delta):
 
 func draw_circle_outline(pos: Vector2, radius, col, txt: String):
 	draw_circle(pos, radius, col)
-	draw_arc(pos, radius, 0.0, 2*PI, 128, Color.BLACK)
+	draw_arc(pos, radius, 0.0, 2*PI, 128, Color.BLACK, 0.75, true)
 	#draw_string(fnt, pos, txt)
 	if !initialized:
 		add_label(pos, txt)
