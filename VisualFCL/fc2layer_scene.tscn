@@ -72,9 +72,9 @@ text = "[b, w1, w2]: [0, 0, 0]"
 
 [node name="Weight12Label" type="Label" parent="."]
 offset_left = 20.0
-offset_top = 548.0
+offset_top = 574.0
 offset_right = 166.0
-offset_bottom = 574.0
+offset_bottom = 600.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "[b, w1, w2]: [0, 0, 0]"
 
@@ -85,6 +85,30 @@ offset_right = 637.0
 offset_bottom = 548.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "[b, w1, w2]: [0, 0, 0]"
+
+[node name="Grad11Label" type="Label" parent="."]
+offset_left = 20.0
+offset_top = 548.0
+offset_right = 199.0
+offset_bottom = 574.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "∂L/∂[b, w1, w2]: [0, 0, 0]"
+
+[node name="Grad12Label" type="Label" parent="."]
+offset_left = 20.0
+offset_top = 600.0
+offset_right = 199.0
+offset_bottom = 626.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "∂L/∂[b, w1, w2]: [0, 0, 0]"
+
+[node name="Grad2Label" type="Label" parent="."]
+offset_left = 491.0
+offset_top = 548.0
+offset_right = 670.0
+offset_bottom = 574.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "∂L/∂[b, w1, w2]: [0, 0, 0]"
 
 [node name="LossLabel" type="Label" parent="."]
 offset_left = 941.0

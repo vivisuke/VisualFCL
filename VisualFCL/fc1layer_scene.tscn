@@ -56,7 +56,7 @@ offset_top = 133.0
 offset_right = 835.0
 offset_bottom = 159.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "※ y = af(a) = sigmoid(a) = 1/(1 + exp(-a))"
+text = "※ y = h(a) = sigmoid(a) = 1/(1 + exp(-a))"
 
 [node name="HelpLabel_3" type="Label" parent="."]
 offset_left = 645.0

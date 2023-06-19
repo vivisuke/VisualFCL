@@ -141,6 +141,9 @@ func update_view():
 	$GraphRect_1.vv_weight = vv_weight
 	$GraphRect_1.queue_redraw()
 	$Weight2Label.text = "[b, w1, w2]: [%.3f, %.3f, %.3f]" % scnd_layer.vec_weight
+	$Grad11Label.text = "∂L/∂[b, w1, w2]: [%.3f, %.3f, %.3f]" % vec_grad_11
+	$Grad12Label.text = "∂L/∂[b, w1, w2]: [%.3f, %.3f, %.3f]" % vec_grad_12
+	$Grad2Label.text = "∂L/∂[b, w1, w2]: [%.3f, %.3f, %.3f]" % vec_grad_2
 	$GraphRect_2.vec_input = vec_input_2nd
 	$GraphRect_2.vv_weight = [scnd_layer.vec_weight]
 	$GraphRect_2.queue_redraw()
