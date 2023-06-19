@@ -3,6 +3,9 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	#var fnt = $BlackFontLabel.get_theme_font("font")
+	$SingleLayerRect.fnt = $BlackFontLabel.get_theme_font("font")
+	$SingleLayerRect.queue_redraw()
 	pass # Replace with function body.
 
 
