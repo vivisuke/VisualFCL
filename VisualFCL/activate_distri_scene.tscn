@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://dcvcr34qyhr6y"]
+
+[node name="ActivateDistriScene" type="Node2D"]
+
+[node name="BG" type="ColorRect" parent="."]
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0.941176, 0.941176, 0.941176, 1)

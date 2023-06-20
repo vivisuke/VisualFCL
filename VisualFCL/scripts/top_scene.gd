@@ -7,6 +7,7 @@ var rect_lst = []
 func _ready():
 	rect_lst.push_back($SingleLayerRect)
 	rect_lst.push_back($DoubleLayerRect)
+	rect_lst.push_back($ActivationDistriRect)
 	#var fnt = $BlackFontLabel.get_theme_font("font")
 	#$SingleLayerRect.fnt = $BlackFontLabel.get_theme_font("font")
 	#$SingleLayerRect.queue_redraw()
@@ -47,21 +48,27 @@ func _input(event):
 			else:
 				print("released")
 				if ix == pressed_ix:
-					if ix == 0:
-						get_tree().change_scene_to_file("res://fc1layer_scene.tscn")
-					elif ix == 1:
-						get_tree().change_scene_to_file("res://fc1layer_scene.tscn")
+					do_change_scene(ix)
 				pressed_ix = -1
 				clear_selected()
 		else:
 			clear_selected()
 	pass
 
+func do_change_scene(ix):
+	if ix == 0:
+		get_tree().change_scene_to_file("res://fc1layer_scene.tscn")
+	elif ix == 1:
+		get_tree().change_scene_to_file("res://fc2layer_scene.tscn")
+	elif ix == 2:
+		get_tree().change_scene_to_file("res://activate_distri_scene.tscn")
+	
 func _on_single_layer_nn_button_pressed():
-	get_tree().change_scene_to_file("res://fc2layer_scene.tscn")
+	do_change_scene(0)
 	pass # Replace with function body.
-
-
 func _on_two_layer_nn_button_pressed():
-	get_tree().change_scene_to_file("res://fc2layer_scene.tscn")
+	do_change_scene(1)
+	pass # Replace with function body.
+func _on_activate_distri_button_pressed():
+	do_change_scene(2)
 	pass # Replace with function body.

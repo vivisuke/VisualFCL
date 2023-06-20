@@ -111,9 +111,9 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "∂L/∂[b, w1, w2]: [0, 0, 0]"
 
 [node name="LossLabel" type="Label" parent="."]
-offset_left = 941.0
+offset_left = 953.0
 offset_top = 548.0
-offset_right = 1026.0
+offset_right = 1038.0
 offset_bottom = 574.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Loss = N/A"
@@ -126,9 +126,9 @@ offset_bottom = 206.0
 text = "Train 100s"
 
 [node name="ItrLabel" type="Label" parent="."]
-offset_left = 941.0
+offset_left = 953.0
 offset_top = 522.0
-offset_right = 1026.0
+offset_right = 1038.0
 offset_bottom = 548.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Iteration: 0"
@@ -177,7 +177,7 @@ text = "0.1"
 
 [node name="Label" type="Label" parent="LearningRate"]
 layout_mode = 0
-offset_left = -91.0
+offset_left = -57.0
 offset_bottom = 31.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "学習率: "
