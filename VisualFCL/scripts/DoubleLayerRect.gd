@@ -1,14 +1,15 @@
 extends ColorRect
 
 const NODE_RADIUS = 20.0
+const Y_LINE = 50
 const X_INPUT = 30
 const X_ACT = 90
 const X_INPUT_2 = 150
 const X_ACT_2 = 210
 const X_OUTPUT = 270
-const Y_1 = 75
-const Y_X1 = 150
-const Y_X2 = 225
+const Y_1 = 75+20
+const Y_X1 = 150+20
+const Y_X2 = 225+20
 
 var initialized = false
 
@@ -19,9 +20,20 @@ func add_label(pos: Vector2, txt: String):
 	lbl.text = txt
 	lbl.position = pos - Vector2(dx, 12)
 	add_child(lbl)
+func add_label_raw(pos: Vector2, txt: String):
+	var lbl = Label.new()
+	lbl.add_theme_color_override("font_color", Color.BLACK)
+	lbl.text = txt
+	lbl.position = pos
+	add_child(lbl)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	add_label_raw(Vector2(X_INPUT, Y_LINE-24), "Affine")
+	add_label_raw(Vector2(X_ACT+10, Y_LINE-24), "ActvF")
+	add_label_raw(Vector2(X_INPUT_2+10, Y_LINE-24), "Affine")
+	add_label_raw(Vector2(X_ACT_2+20, Y_LINE-24), "ActvF")
+	#
 	pass # Replace with function body.
 
 
@@ -66,5 +78,10 @@ func _draw():
 	draw_circle_outline(Vector2(X_INPUT_2, Y_X2), NODE_RADIUS, Color.WHITE, "x2")
 	draw_circle_outline(Vector2(X_ACT_2, Y_X1), NODE_RADIUS, Color.WHITE, "a")
 	draw_circle_outline(Vector2(X_OUTPUT, Y_X1), NODE_RADIUS, Color.WHITE, "y")
+	# 上部
+	draw_line(Vector2(X_INPUT-NODE_RADIUS+5, Y_LINE), Vector2(X_ACT-5, Y_LINE), Color.BLACK)
+	draw_line(Vector2(X_ACT+5, Y_LINE), Vector2(X_INPUT_2-5, Y_LINE), Color.BLACK)
+	draw_line(Vector2(X_INPUT_2+5, Y_LINE), Vector2(X_ACT_2-5, Y_LINE), Color.BLACK)
+	draw_line(Vector2(X_ACT_2+5, Y_LINE), Vector2(X_OUTPUT+NODE_RADIUS-5, Y_LINE), Color.BLACK)
 	#
 	initialized = true
