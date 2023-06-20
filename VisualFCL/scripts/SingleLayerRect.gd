@@ -11,6 +11,7 @@ const Y_X2 = 225+20
 const X_WEIGHT = 110
 const X_AF = 190
 
+var selected = false
 var initialized = false
 var fnt
 
@@ -66,7 +67,7 @@ func draw_circle_outline(pos: Vector2, radius, col, txt: String):
 func _draw():
 	# 背景＋影 描画
 	var style_box = StyleBoxFlat.new()      # 影、ボーダなどを描画するための矩形スタイルオブジェクト
-	style_box.bg_color = Color.WHITE   # 矩形背景色
+	style_box.bg_color = Color.WHITE if !selected else Color.LIGHT_CYAN  # 矩形背景色
 	style_box.shadow_offset = Vector2(0, 4)     # 影オフセット
 	style_box.shadow_size = 8                   # 影（ぼかし）サイズ
 	style_box.shadow_color = Color.GRAY
