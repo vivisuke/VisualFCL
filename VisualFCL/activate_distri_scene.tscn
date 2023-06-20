@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dcvcr34qyhr6y"]
+[gd_scene load_steps=3 format=3 uid="uid://dcvcr34qyhr6y"]
 
 [ext_resource type="Script" path="res://scripts/activate_distri_scene.gd" id="1_qkpaq"]
+[ext_resource type="Script" path="res://scripts/GraphRect.gd" id="2_dpgsd"]
 
 [node name="ActivateDistriScene" type="Node2D"]
 script = ExtResource("1_qkpaq")
@@ -16,5 +17,47 @@ offset_top = 25.0
 offset_right = 1136.0
 offset_bottom = 56.0
 text = "Top"
+
+[node name="GraphRect_1" type="ColorRect" parent="."]
+offset_left = 20.0
+offset_top = 10.0
+offset_right = 320.0
+offset_bottom = 310.0
+script = ExtResource("2_dpgsd")
+
+[node name="GraphRect_2" type="ColorRect" parent="."]
+offset_left = 340.0
+offset_top = 10.0
+offset_right = 640.0
+offset_bottom = 310.0
+script = ExtResource("2_dpgsd")
+
+[node name="GraphRect_3" type="ColorRect" parent="."]
+offset_left = 660.0
+offset_top = 10.0
+offset_right = 960.0
+offset_bottom = 310.0
+script = ExtResource("2_dpgsd")
+
+[node name="GraphRect_4" type="ColorRect" parent="."]
+offset_left = 20.0
+offset_top = 330.0
+offset_right = 320.0
+offset_bottom = 630.0
+script = ExtResource("2_dpgsd")
+
+[node name="GraphRect_5" type="ColorRect" parent="."]
+offset_left = 340.0
+offset_top = 330.0
+offset_right = 640.0
+offset_bottom = 630.0
+script = ExtResource("2_dpgsd")
+
+[node name="GraphRect_6" type="ColorRect" parent="."]
+offset_left = 660.0
+offset_top = 330.0
+offset_right = 960.0
+offset_bottom = 630.0
+script = ExtResource("2_dpgsd")
 
 [connection signal="pressed" from="TopButton" to="." method="_on_top_button_pressed"]
