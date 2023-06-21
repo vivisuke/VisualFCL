@@ -120,7 +120,7 @@ func dot_plot(pos: Vector2, b: bool):
 		draw_circle(posToScreenPos(pos), DOT_RADIUS, Color.BLACK)
 	else:
 		draw_circle(posToScreenPos(pos), DOT_RADIUS, Color.WHITE)
-		draw_arc(posToScreenPos(pos), DOT_RADIUS, 0.0, 2*PI, 128, Color.BLACK)
+	draw_arc(posToScreenPos(pos), DOT_RADIUS, 0.0, 2*PI, 128, Color.BLACK, 0.5, true)
 func plot_boolean_sub(pos:Vector2):
 	var b = 0
 	if ope == OP_AND: b = 1.0 if pos.x != 0 && pos.y != 0.0 else 0.0		# AND
