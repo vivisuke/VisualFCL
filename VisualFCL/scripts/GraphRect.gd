@@ -34,6 +34,7 @@ var ORG_X = SPACE_LEFT + GRAPH_WD/2
 var ORG_Y = SPACE_TOP + GRAPH_HT/2
 const DOT_RADIUS = 4.0
 
+var to_draw_div_lines = true
 var dispersion = DSP_001					# 重み分散、0.01 | Xavier | He
 var distribution = UNIFORM_DISTRIBUTION		# 分布
 var maxv = 2.0								# グラフ範囲
@@ -190,13 +191,14 @@ func _draw():
 	else:
 		plot_points()
 	#
-	for i in range(vv_weight.size()):
-		var vw = vv_weight[i]
-		draw_div_line(vw, false)
-		var v = vw.duplicate()
-		v[0] += 1.0
-		draw_div_line(v, true)
-		v[0] -= 2.0
-		draw_div_line(v, true)
+	if to_draw_div_lines:
+		for i in range(vv_weight.size()):
+			var vw = vv_weight[i]
+			draw_div_line(vw, false)
+			var v = vw.duplicate()
+			v[0] += 1.0
+			draw_div_line(v, true)
+			v[0] -= 2.0
+			draw_div_line(v, true)
 	pass
 	

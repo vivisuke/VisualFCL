@@ -48,6 +48,12 @@ class FCN1Unit:
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$GraphRect_1.to_draw_div_lines = false
+	$GraphRect_2.to_draw_div_lines = false
+	$GraphRect_3.to_draw_div_lines = false
+	$GraphRect_4.to_draw_div_lines = false
+	$GraphRect_5.to_draw_div_lines = false
+	$GraphRect_6.to_draw_div_lines = false
 	first_layer = FCN1Unit.new(N_INPUT, 1.0)
 	init()
 	pass # Replace with function body.
@@ -56,9 +62,15 @@ func init():
 	for i in range(N_INPUT/2):
 		var x = randfn(0.0, 1.0)
 		var y = randfn(0.0, 1.0)
-		vec_input.push_back([x, y, true])
+		vec_input.push_back([x, y, false])
 	$GraphRect_1.vec_input = vec_input
 	$GraphRect_1.maxv = 3.0
+	$GraphRect_1.queue_redraw()
+	$GraphRect_2.queue_redraw()
+	$GraphRect_3.queue_redraw()
+	$GraphRect_4.queue_redraw()
+	$GraphRect_5.queue_redraw()
+	$GraphRect_6.queue_redraw()
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
