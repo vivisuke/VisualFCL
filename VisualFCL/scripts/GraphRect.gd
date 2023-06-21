@@ -35,6 +35,7 @@ var ORG_Y = SPACE_TOP + GRAPH_HT/2
 const DOT_RADIUS = 4.0
 
 var to_draw_div_lines = true
+var to_plot_boolean = true
 var dispersion = DSP_001					# 重み分散、0.01 | Xavier | He
 var distribution = UNIFORM_DISTRIBUTION		# 分布
 var maxv = 2.0								# グラフ範囲
@@ -187,7 +188,8 @@ func _draw():
 	axis_labels[6].text = "%.1f" % maxv
 	#
 	if vec_input.is_empty():
-		plot_boolean()
+		if to_plot_boolean:
+			plot_boolean()
 	else:
 		plot_points()
 	#
