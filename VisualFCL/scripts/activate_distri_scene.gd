@@ -1,21 +1,25 @@
 extends Node2D
 
+enum {		# 活性化関数種別
+	AF_SIGMOID = 0, AF_TANH, AF_RELU,
+}
 const N_INPUT = 100				# 入力データ数
-const N_NODE = 100				# 中間ノード数
+const N_NODE = 100				# 中間、出力ノード数
 
 var vec_input = []				# 入力データ配列, [x1, x2, x3, ... xN]
 var vec_input_pair = []			# 入力データ配列, 要素：[x, y, bool]
-var first_layer = []
+var first_layer
 var vec_output_1 = []			# 1st レイヤー出力
 var vec_output_1_pair = []		# 1st レイヤー出力, 要素：[x, y, bool]
 var vec_output_2 = []			# 1st レイヤー出力
 var vec_output_2_pair = []		# 1st レイヤー出力, 要素：[x, y, bool]
 
-# N入力１出力総結合層クラス
-# 活性化関数：シグモイド固定
-class FCN1Unit:
-	func _init(n_in, deviation):
+# ニューロンクラス、N入力１出力
+# 活性化関数：シグモイド・tanh・ReLU etc ?
+class Neuron:
+	func _init(n_in, af, deviation:float):
 		n_input = n_in
+		actv_func = af
 		# 重みベクター初期化
 		vec_weight.resize(n_input+1)
 		if true:
@@ -33,7 +37,7 @@ class FCN1Unit:
 	func forward(inp: Array):
 		a = vec_weight[0]
 		for i in range(n_input):
-			a += vec_weight[i+1]*inp[i]
+			a += vec_weight[i+1] * inp[i]
 		#y = sigmoid(a)
 		y = tanh(a)
 		#print("a = ", a, ", y = ", y)
@@ -46,11 +50,27 @@ class FCN1Unit:
 		upgrad.push_back(dydag)
 		for i in range(n_input):
 			upgrad.push_back(dydag * inp[i])
-	var a			# a = b + w1*x1 + w2*x2 + ... wN*xN
-	var y			# y = af(a)、af はシグモイド関数固定
 	var n_input		# 入力データ数
-	var vec_weight = []			# [b, w1, w2, w3, ... wN] 重みベクター
-	var upgrad					# 上流勾配
+	var actv_func	# 活性化関数種別
+	var vec_weight = []		# [b, w1, w2, w3, ... wN] 重みベクター
+	var a					# a = b + w1*x1 + w2*x2 + ... wN*xN
+	var y					# y = af(a)、af はシグモイド関数固定
+	var upgrad				# 上流勾配
+#
+class FCLayer:
+	func _init(n_in, n_out, af, deviation:float): 
+		n_output = n_out
+		neuron_lst.resize(n_out)
+		for i in range(n_out):
+			neuron_lst[i] = Neuron.new(n_in, af, deviation)
+	func forward(inp: Array):
+		vec_output.resize(n_output)
+		for i in range(n_output):
+			neuron_lst[i].forward(inp)
+			vec_output[i] = neuron_lst[i].y
+	var n_output
+	var neuron_lst = []
+	var vec_output = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -66,9 +86,9 @@ func _ready():
 	$GraphRect_4.to_plot_boolean = false
 	$GraphRect_5.to_plot_boolean = false
 	$GraphRect_6.to_plot_boolean = false
-	first_layer = []
-	for i in range(N_NODE):
-		first_layer.push_back(FCN1Unit.new(N_INPUT, 1.0))
+	first_layer = FCLayer.new(N_INPUT, N_NODE, AF_TANH, 0.1)
+	#for i in range(N_NODE):
+	#	first_layer.push_back(FCN1Unit.new(N_INPUT, 0.1))
 	init()
 	forward()
 	pass # Replace with function body.
@@ -90,14 +110,16 @@ func init():
 	$GraphRect_5.queue_redraw()
 	$GraphRect_6.queue_redraw()
 func forward():
-	vec_output_1 = []
+	first_layer.forward(vec_input)
+	var vec_output = first_layer.vec_output
+	#vec_output_1 = []
 	vec_output_1_pair = []
 	for i in range(N_NODE/2):
-		first_layer[i*2].forward(vec_input)
-		vec_output_1.push_back(first_layer[i*2].y)
-		first_layer[i*2+1].forward(vec_input)
-		vec_output_1.push_back(first_layer[i*2+1].y)
-		vec_output_1_pair.push_back([first_layer[i*2].y, first_layer[i*2+1].y, false])
+		#first_layer[i*2].forward(vec_input)
+		#vec_output_1.push_back(first_layer[i*2].y)
+		#first_layer[i*2+1].forward(vec_input)
+		#vec_output_1.push_back(first_layer[i*2+1].y)
+		vec_output_1_pair.push_back([vec_output[i*2], vec_output[i*2+1], false])
 	$GraphRect_2.vec_input = vec_output_1_pair
 	$GraphRect_2.maxv = 1.0
 	$GraphRect_2.queue_redraw()
