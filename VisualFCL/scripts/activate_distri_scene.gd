@@ -5,14 +5,17 @@ enum {		# 活性化関数種別
 }
 const N_INPUT = 100				# 入力データ数
 const N_NODE = 100				# 中間、出力ノード数
+const N_LAYER = 5				# レイヤー数
 
 var vec_input = []				# 入力データ配列, [x1, x2, x3, ... xN]
-var vec_input_pair = []			# 入力データ配列, 要素：[x, y, bool]
+var vec_pair = []				# データ配列, 要素：[x, y, bool]
 var first_layer
-var vec_output_1 = []			# 1st レイヤー出力
-var vec_output_1_pair = []		# 1st レイヤー出力, 要素：[x, y, bool]
-var vec_output_2 = []			# 1st レイヤー出力
-var vec_output_2_pair = []		# 1st レイヤー出力, 要素：[x, y, bool]
+var vec_layer = []				# レイヤーオブジェクト配列
+#var vec_output_1 = []			# 1st レイヤー出力
+#var vec_output_1_pair = []		# 1st レイヤー出力, 要素：[x, y, bool]
+#var vec_output_2 = []			# 1st レイヤー出力
+#var vec_output_2_pair = []		# 1st レイヤー出力, 要素：[x, y, bool]
+var vec_graph_rect = []
 
 # ニューロンクラス、N入力１出力
 # 活性化関数：シグモイド・tanh・ReLU etc ?
@@ -74,19 +77,31 @@ class FCLayer:
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$GraphRect_1.to_draw_div_lines = false
-	$GraphRect_2.to_draw_div_lines = false
-	$GraphRect_3.to_draw_div_lines = false
-	$GraphRect_4.to_draw_div_lines = false
-	$GraphRect_5.to_draw_div_lines = false
-	$GraphRect_6.to_draw_div_lines = false
-	$GraphRect_1.to_plot_boolean = false
-	$GraphRect_2.to_plot_boolean = false
-	$GraphRect_3.to_plot_boolean = false
-	$GraphRect_4.to_plot_boolean = false
-	$GraphRect_5.to_plot_boolean = false
-	$GraphRect_6.to_plot_boolean = false
-	first_layer = FCLayer.new(N_INPUT, N_NODE, AF_TANH, 0.1)
+	vec_graph_rect.push_back($GraphRect_1)
+	vec_graph_rect.push_back($GraphRect_2)
+	vec_graph_rect.push_back($GraphRect_3)
+	vec_graph_rect.push_back($GraphRect_4)
+	vec_graph_rect.push_back($GraphRect_5)
+	vec_graph_rect.push_back($GraphRect_6)
+	for i in range(vec_graph_rect.size()):
+		vec_graph_rect[i].to_draw_div_lines = false
+		vec_graph_rect[i].to_plot_boolean = false
+	#$GraphRect_1.to_draw_div_lines = false
+	#$GraphRect_2.to_draw_div_lines = false
+	#$GraphRect_3.to_draw_div_lines = false
+	#$GraphRect_4.to_draw_div_lines = false
+	#$GraphRect_5.to_draw_div_lines = false
+	#$GraphRect_6.to_draw_div_lines = false
+	#$GraphRect_1.to_plot_boolean = false
+	#$GraphRect_2.to_plot_boolean = false
+	#$GraphRect_3.to_plot_boolean = false
+	#$GraphRect_4.to_plot_boolean = false
+	#$GraphRect_5.to_plot_boolean = false
+	#$GraphRect_6.to_plot_boolean = false
+	vec_layer.resize(N_LAYER)
+	for i in range(N_LAYER):
+		vec_layer[i] = FCLayer.new(N_INPUT, N_NODE, AF_TANH, 0.1)
+	#first_layer = FCLayer.new(N_INPUT, N_NODE, AF_TANH, 0.1)
 	#for i in range(N_NODE):
 	#	first_layer.push_back(FCN1Unit.new(N_INPUT, 0.1))
 	init()
@@ -94,35 +109,32 @@ func _ready():
 	pass # Replace with function body.
 func init():
 	vec_input = []
-	vec_input_pair = []
+	vec_pair = []
 	for i in range(N_INPUT/2):
 		var x = randfn(0.0, 1.0)
 		vec_input.push_back(x)
 		var y = randfn(0.0, 1.0)
 		vec_input.push_back(y)
-		vec_input_pair.push_back([x, y, false])
-	$GraphRect_1.vec_input = vec_input_pair
+		vec_pair.push_back([x, y, false])
+	$GraphRect_1.vec_input = vec_pair
 	$GraphRect_1.maxv = 3.0
-	$GraphRect_1.queue_redraw()
-	$GraphRect_2.queue_redraw()
-	$GraphRect_3.queue_redraw()
-	$GraphRect_4.queue_redraw()
-	$GraphRect_5.queue_redraw()
-	$GraphRect_6.queue_redraw()
+	#$GraphRect_1.queue_redraw()
+	#$GraphRect_2.queue_redraw()
+	#$GraphRect_3.queue_redraw()
+	#$GraphRect_4.queue_redraw()
+	#$GraphRect_5.queue_redraw()
+	#$GraphRect_6.queue_redraw()
 func forward():
-	first_layer.forward(vec_input)
-	var vec_output = first_layer.vec_output
-	#vec_output_1 = []
-	vec_output_1_pair = []
-	for i in range(N_NODE/2):
-		#first_layer[i*2].forward(vec_input)
-		#vec_output_1.push_back(first_layer[i*2].y)
-		#first_layer[i*2+1].forward(vec_input)
-		#vec_output_1.push_back(first_layer[i*2+1].y)
-		vec_output_1_pair.push_back([vec_output[i*2], vec_output[i*2+1], false])
-	$GraphRect_2.vec_input = vec_output_1_pair
-	$GraphRect_2.maxv = 1.0
-	$GraphRect_2.queue_redraw()
+	var tmp = vec_input
+	for k in range(N_LAYER):
+		vec_layer[k].forward(tmp)
+		tmp = vec_layer[k].vec_output
+		vec_pair = []
+		for i in range(N_NODE/2):
+			vec_pair.push_back([tmp[i*2], tmp[i*2+1], false])
+		vec_graph_rect[k+1].vec_input = vec_pair
+		vec_graph_rect[k+1].maxv = 1.0
+		vec_graph_rect[k+1].queue_redraw()
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
