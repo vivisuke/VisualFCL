@@ -12,6 +12,7 @@ offset_bottom = 648.0
 color = Color(0.941176, 0.941176, 0.941176, 1)
 
 [node name="Label" type="Label" parent="."]
+visible = false
 offset_left = 20.0
 offset_top = 20.0
 offset_right = 91.0
@@ -20,6 +21,7 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "1st Layer:"
 
 [node name="Label2" type="Label" parent="."]
+visible = false
 offset_left = 491.0
 offset_top = 20.0
 offset_right = 572.0
@@ -29,16 +31,16 @@ text = "2nd Layer:"
 
 [node name="GraphRect_1" type="ColorRect" parent="."]
 offset_left = 20.0
-offset_top = 56.0
+offset_top = 20.0
 offset_right = 470.0
-offset_bottom = 506.0
+offset_bottom = 470.0
 script = ExtResource("1_fujtt")
 
 [node name="GraphRect_2" type="ColorRect" parent="."]
 offset_left = 491.0
-offset_top = 56.0
+offset_top = 20.0
 offset_right = 941.0
-offset_bottom = 506.0
+offset_bottom = 470.0
 script = ExtResource("1_fujtt")
 
 [node name="TopButton" type="Button" parent="."]
@@ -64,57 +66,61 @@ text = "Train 1 Step"
 
 [node name="Weight11Label" type="Label" parent="."]
 offset_left = 20.0
-offset_top = 522.0
+offset_top = 500.0
 offset_right = 166.0
-offset_bottom = 548.0
+offset_bottom = 526.0
+rotation = -0.00716988
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "[b, w1, w2]: [0, 0, 0]"
 
 [node name="Weight12Label" type="Label" parent="."]
 offset_left = 20.0
-offset_top = 574.0
+offset_top = 553.047
 offset_right = 166.0
-offset_bottom = 600.0
+offset_bottom = 579.047
+rotation = -0.00716988
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "[b, w1, w2]: [0, 0, 0]"
 
 [node name="Weight2Label" type="Label" parent="."]
 offset_left = 491.0
-offset_top = 522.0
+offset_top = 501.0
 offset_right = 637.0
-offset_bottom = 548.0
+offset_bottom = 527.0
+rotation = -0.00716988
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "[b, w1, w2]: [0, 0, 0]"
 
 [node name="Grad11Label" type="Label" parent="."]
 offset_left = 20.0
-offset_top = 548.0
+offset_top = 527.047
 offset_right = 199.0
-offset_bottom = 574.0
+offset_bottom = 553.047
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "∂L/∂[b, w1, w2]: [0, 0, 0]"
 
 [node name="Grad12Label" type="Label" parent="."]
 offset_left = 20.0
-offset_top = 600.0
+offset_top = 579.047
 offset_right = 199.0
-offset_bottom = 626.0
+offset_bottom = 605.047
+rotation = -0.00716988
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "∂L/∂[b, w1, w2]: [0, 0, 0]"
 
 [node name="Grad2Label" type="Label" parent="."]
 offset_left = 491.0
-offset_top = 548.0
+offset_top = 527.047
 offset_right = 670.0
-offset_bottom = 574.0
+offset_bottom = 553.047
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "∂L/∂[b, w1, w2]: [0, 0, 0]"
 
 [node name="LossLabel" type="Label" parent="."]
 offset_left = 953.0
-offset_top = 548.0
+offset_top = 527.0
 offset_right = 1038.0
-offset_bottom = 574.0
+offset_bottom = 553.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Loss = N/A"
 
@@ -127,9 +133,9 @@ text = "Train 100s"
 
 [node name="ItrLabel" type="Label" parent="."]
 offset_left = 953.0
-offset_top = 522.0
+offset_top = 501.0
 offset_right = 1038.0
-offset_bottom = 548.0
+offset_bottom = 527.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Iteration: 0"
 

@@ -11,6 +11,8 @@ func _ready():
 	#var fnt = $BlackFontLabel.get_theme_font("font")
 	#$SingleLayerRect.fnt = $BlackFontLabel.get_theme_font("font")
 	#$SingleLayerRect.queue_redraw()
+	$ActivationDistriRect/GraphRect.to_draw_div_lines = false
+	$ActivationDistriRect/GraphRect.to_plot_boolean = false
 	pass # Replace with function body.
 
 

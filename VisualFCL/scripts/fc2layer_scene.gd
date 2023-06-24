@@ -59,6 +59,16 @@ func init_weight():
 	return w
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	var lbl = Label.new()
+	lbl.text = "1st Layer" #if i == 0 else "2nd Layer"
+	lbl.add_theme_color_override("font_color", Color.BLACK)
+	lbl.position = Vector2(200, 0)
+	$GraphRect_1.add_child(lbl)
+	lbl = Label.new()
+	lbl.text = "2nd Layer"
+	lbl.add_theme_color_override("font_color", Color.BLACK)
+	lbl.position = Vector2(200, 0)
+	$GraphRect_2.add_child(lbl)
 	init()
 	pass # Replace with function body.
 func teacher_value(inp:Array):
