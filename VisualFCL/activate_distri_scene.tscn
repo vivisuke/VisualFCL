@@ -60,4 +60,19 @@ offset_right = 960.0
 offset_bottom = 630.0
 script = ExtResource("2_dpgsd")
 
+[node name="ActvFuncButton" type="OptionButton" parent="."]
+offset_left = 1011.0
+offset_top = 74.0
+offset_right = 1136.0
+offset_bottom = 105.0
+item_count = 3
+selected = 0
+popup/item_0/text = "tanh()"
+popup/item_0/id = 0
+popup/item_1/text = "sigmoid"
+popup/item_1/id = 1
+popup/item_2/text = "ReLU"
+popup/item_2/id = 2
+
 [connection signal="pressed" from="TopButton" to="." method="_on_top_button_pressed"]
+[connection signal="item_selected" from="ActvFuncButton" to="." method="_on_actv_func_button_item_selected"]
