@@ -1,7 +1,8 @@
 extends Node2D
 
-enum {		# 活性化関数種別
-	AF_TANH = 0, AF_SIGMOID, AF_RELU,
+enum {
+	AF_TANH = 0, AF_SIGMOID, AF_RELU,		# 活性化関数種別
+	WI_1 = 0, WI_001, WI_XAVIER, WI_HE,		# 重み標準偏差・初期化方法
 }
 const N_INPUT = 50				# 入力データ数
 const N_NODE = 50				# 中間、出力ノード数
@@ -26,8 +27,7 @@ class Neuron:
 		# 重みベクター初期化
 		vec_weight.resize(n_input+1)
 		if true:
-			for i in range(n_input+1):
-				vec_weight[i] = randfn(0.0, deviation)
+			init_weight(deviation)
 		else:
 			vec_weight[0] = sin(randf_range(0.0, 2*PI))
 			vec_weight[1] = 1.0
@@ -36,6 +36,9 @@ class Neuron:
 				for k in range(n_input-1):
 					vec_weight[k+1] *= cos(th)
 				vec_weight[i+2] = sin(th)
+	func init_weight(deviation:float):
+		for i in range(n_input+1):
+			vec_weight[i] = randfn(0.0, deviation)
 	func sigmoid(x): return 1.0/(1.0 + exp(-x))
 	func ReLU(x): return x if x >= 0.0 else 0.0
 	func forward(inp: Array):
@@ -71,6 +74,9 @@ class FCLayer:
 	func set_af(af):
 		for i in range(n_output):
 			neuron_lst[i].actv_func = af
+	func set_norm(norm):
+		for i in range(n_output):
+			neuron_lst[i].init_weight(norm)
 	func forward(inp: Array):
 		vec_output.resize(n_output)
 		for i in range(n_output):
@@ -149,15 +155,19 @@ func forward():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
-
-
 func _on_top_button_pressed():
 	get_tree().change_scene_to_file("res://top_scene.tscn")
-	pass # Replace with function body.
-
-
 func _on_actv_func_button_item_selected(index):
 	for k in range(N_LAYER):
 		vec_layer[k].set_af(index)
 	forward()
-	pass # Replace with function body.
+func _on_wt_init_type_button_item_selected(index):
+	var norm
+	if index == WI_1: norm = 1.0
+	elif index == WI_001: norm = 0.001
+	elif index == WI_XAVIER: norm = 1.0/sqrt(N_INPUT)
+	elif index == WI_HE: norm = sqrt(2.0/N_INPUT)
+	print("norm = ", norm)
+	for k in range(N_LAYER):
+		vec_layer[k].set_norm(norm)
+	forward()

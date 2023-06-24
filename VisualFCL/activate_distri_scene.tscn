@@ -74,5 +74,22 @@ popup/item_1/id = 1
 popup/item_2/text = "ReLU"
 popup/item_2/id = 2
 
+[node name="WtInitTypeButton" type="OptionButton" parent="."]
+offset_left = 1011.0
+offset_top = 122.0
+offset_right = 1136.0
+offset_bottom = 153.0
+item_count = 4
+selected = 0
+popup/item_0/text = "1.0"
+popup/item_0/id = 0
+popup/item_1/text = "0.01"
+popup/item_1/id = 1
+popup/item_2/text = "Xavier"
+popup/item_2/id = 2
+popup/item_3/text = "He"
+popup/item_3/id = 3
+
 [connection signal="pressed" from="TopButton" to="." method="_on_top_button_pressed"]
 [connection signal="item_selected" from="ActvFuncButton" to="." method="_on_actv_func_button_item_selected"]
+[connection signal="item_selected" from="WtInitTypeButton" to="." method="_on_wt_init_type_button_item_selected"]
