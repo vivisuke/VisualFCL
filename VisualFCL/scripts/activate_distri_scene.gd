@@ -3,8 +3,8 @@ extends Node2D
 enum {		# 活性化関数種別
 	AF_SIGMOID = 0, AF_TANH, AF_RELU,
 }
-const N_INPUT = 100				# 入力データ数
-const N_NODE = 100				# 中間、出力ノード数
+const N_INPUT = 50				# 入力データ数
+const N_NODE = 50				# 中間、出力ノード数
 const N_LAYER = 5				# レイヤー数
 
 var vec_input = []				# 入力データ配列, [x1, x2, x3, ... xN]
@@ -84,6 +84,11 @@ func _ready():
 	vec_graph_rect.push_back($GraphRect_5)
 	vec_graph_rect.push_back($GraphRect_6)
 	for i in range(vec_graph_rect.size()):
+		var lbl = Label.new()
+		lbl.text = "Input" if i == 0 else ("Layer-%d" % i)
+		lbl.add_theme_color_override("font_color", Color.BLACK)
+		lbl.position = Vector2(130, 0)
+		vec_graph_rect[i].add_child(lbl)
 		vec_graph_rect[i].to_draw_div_lines = false
 		vec_graph_rect[i].to_plot_boolean = false
 	#$GraphRect_1.to_draw_div_lines = false

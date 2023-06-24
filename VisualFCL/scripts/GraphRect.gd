@@ -17,8 +17,8 @@ enum {
 var SZ = self.size
 var SCREEN_WD = SZ.x
 var SCREEN_HT = SZ.y
-const SPACE_TOP = 20.0
-const SPACE_BOTTOM = 40.0
+const SPACE_TOP = 30.0
+const SPACE_BOTTOM = 30.0
 const SPACE_LEFT = 40.0
 var GRAPH_HT = SCREEN_HT - (SPACE_TOP + SPACE_BOTTOM)
 var GRAPH_WD = GRAPH_HT
