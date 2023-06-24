@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://bhn16u7hhqek5"]
+[gd_scene load_steps=6 format=3 uid="uid://bhn16u7hhqek5"]
 
 [ext_resource type="Script" path="res://scripts/top_scene.gd" id="1_8gowc"]
 [ext_resource type="Script" path="res://scripts/SingleLayerRect.gd" id="2_v6wdx"]
 [ext_resource type="Script" path="res://scripts/DoubleLayerRect.gd" id="3_xv4wc"]
 [ext_resource type="Script" path="res://scripts/ActivationDistriRect.gd" id="4_6cx0r"]
+[ext_resource type="Texture2D" uid="uid://cpa1qlinelwg1" path="res://images/input_data.png" id="5_1gi6k"]
 
 [node name="TopScene" type="Node2D"]
 script = ExtResource("1_8gowc")
@@ -18,7 +19,7 @@ offset_left = 125.0
 offset_top = 150.0
 offset_right = 265.0
 offset_bottom = 181.0
-text = "単層NN"
+text = "単一ニューロン"
 
 [node name="TwoLayerNNButton" type="Button" parent="."]
 offset_left = 495.0
@@ -54,6 +55,15 @@ offset_top = 200.0
 offset_right = 1110.0
 offset_bottom = 500.0
 script = ExtResource("4_6cx0r")
+
+[node name="TextureRect" type="TextureRect" parent="ActivationDistriRect"]
+layout_mode = 0
+offset_left = 48.0
+offset_top = 24.0
+offset_right = 378.0
+offset_bottom = 350.0
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("5_1gi6k")
 
 [node name="TitleLabel" type="Label" parent="."]
 offset_top = 5.0
