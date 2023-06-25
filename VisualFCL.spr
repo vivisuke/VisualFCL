@@ -81,7 +81,7 @@
 0079 ◎ C 06/25 06/25 0.003│ToDo│「Input」→「1-Layer Input」、「N-Layer」→「N-Layer Output」
 0080 ◎ C 06/25 06/25 0.003│ToDo│トップシーン＞Activation分布：ランダムプロット
 0081 ◎ C 06/25 06/25 0.003│ToDo│Act分布シーン > 分離線：第１層の [b, w1, w2] を反映
-0082 ● C 06/25            │ToDo│
+0082 ◎ C 06/25 06/26 0.003│ToDo│Act分布シーン：「Init Weight」ボタン設置
 0083 ● C 06/25            │ToDo│
 0084 ● C 06/25            │ToDo│
 0085 ● C 06/25            │ToDo│

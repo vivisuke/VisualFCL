@@ -149,8 +149,8 @@ func plot_points():
 		#draw_circle(posToScreenPos(Vector2(x, y)), 4.0, col)
 		dot_plot(Vector2(x, y), vec_input[i][2])
 func _draw():
-	print("draw()")
-	print("ope = ", ope)
+	#print("draw()")
+	#print("ope = ", ope)
 	# 背景＋影 描画
 	var style_box = StyleBoxFlat.new()      # 影、ボーダなどを描画するための矩形スタイルオブジェクト
 	style_box.bg_color = Color.WHITE   # 矩形背景色

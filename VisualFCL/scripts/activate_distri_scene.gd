@@ -8,6 +8,7 @@ const N_INPUT = 50				# 入力データ数
 const N_NODE = 50				# 中間、出力ノード数
 const N_LAYER = 5				# レイヤー数
 
+var norm = 1.0
 var vec_input = []				# 入力データ配列, [x1, x2, x3, ... xN]
 var vec_pair = []				# データ配列, 要素：[x, y, bool]
 var first_layer
@@ -74,7 +75,7 @@ class FCLayer:
 	func set_af(af):
 		for i in range(n_output):
 			neuron_lst[i].actv_func = af
-	func set_norm(norm):
+	func set_norm(norm):	# 重み標準偏差設定・重み再計算
 		for i in range(n_output):
 			neuron_lst[i].init_weight(norm)
 	func forward(inp: Array):
@@ -117,14 +118,9 @@ func _ready():
 	vec_layer.resize(N_LAYER)
 	for i in range(N_LAYER):
 		vec_layer[i] = FCLayer.new(N_INPUT, N_NODE, AF_TANH, 0.1414)
-	var vv_weight = []
-	first_layer = vec_layer[0]
-	for i in range(5):
-		var vw = first_layer.neuron_lst[i].vec_weight
-		vv_weight.push_back([vw[0], vw[1], vw[2]])
-	$GraphRect_1.vv_weight = vv_weight
 	init()
 	forward()
+	set_div_line()
 	pass # Replace with function body.
 func init():
 	vec_input = []
@@ -136,13 +132,22 @@ func init():
 		vec_input.push_back(y)
 		vec_pair.push_back([x, y, false])
 	$GraphRect_1.vec_input = vec_pair
-	$GraphRect_1.maxv = 3.0
+	$GraphRect_1.maxv = 4.0
 	#$GraphRect_1.queue_redraw()
 	#$GraphRect_2.queue_redraw()
 	#$GraphRect_3.queue_redraw()
 	#$GraphRect_4.queue_redraw()
 	#$GraphRect_5.queue_redraw()
 	#$GraphRect_6.queue_redraw()
+func set_div_line():
+	var vv_weight = []
+	first_layer = vec_layer[0]
+	for i in range(5):
+		var vw = first_layer.neuron_lst[i].vec_weight
+		vv_weight.push_back([vw[0], vw[1], vw[2]])
+		print("[b, w1, w2] = ", [vw[0], vw[1], vw[2]])
+	$GraphRect_1.vv_weight = vv_weight
+	$GraphRect_1.queue_redraw()
 func forward():
 	var tmp = vec_input
 	for k in range(N_LAYER):
@@ -164,8 +169,8 @@ func _on_actv_func_button_item_selected(index):
 	for k in range(N_LAYER):
 		vec_layer[k].set_af(index)
 	forward()
+	set_div_line()
 func _on_wt_init_type_button_item_selected(index):
-	var norm
 	if index == WI_1: norm = 1.0
 	elif index == WI_001: norm = 0.001
 	elif index == WI_XAVIER: norm = 1.0/sqrt(N_INPUT)
@@ -174,3 +179,10 @@ func _on_wt_init_type_button_item_selected(index):
 	for k in range(N_LAYER):
 		vec_layer[k].set_norm(norm)
 	forward()
+	set_div_line()
+func _on_init_button_pressed():
+	for k in range(N_LAYER):
+		vec_layer[k].set_norm(norm)
+	forward()
+	set_div_line()
+	pass # Replace with function body.
