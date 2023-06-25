@@ -100,7 +100,7 @@ func _ready():
 		lbl.add_theme_color_override("font_color", Color.BLACK)
 		lbl.position = Vector2(102, 0)
 		vec_graph_rect[i].add_child(lbl)
-		vec_graph_rect[i].to_draw_div_lines = false
+		vec_graph_rect[i].to_draw_div_lines = false if i != 0 else true
 		vec_graph_rect[i].to_plot_boolean = false
 	#$GraphRect_1.to_draw_div_lines = false
 	#$GraphRect_2.to_draw_div_lines = false
