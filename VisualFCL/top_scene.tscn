@@ -58,6 +58,7 @@ offset_bottom = 500.0
 script = ExtResource("4_6cx0r")
 
 [node name="GraphRect" type="ColorRect" parent="ActivationDistriRect"]
+layout_mode = 0
 offset_left = 56.0
 offset_top = 24.0
 offset_right = 306.0
