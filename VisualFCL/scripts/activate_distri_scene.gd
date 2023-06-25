@@ -117,9 +117,12 @@ func _ready():
 	vec_layer.resize(N_LAYER)
 	for i in range(N_LAYER):
 		vec_layer[i] = FCLayer.new(N_INPUT, N_NODE, AF_TANH, 0.1414)
-	#first_layer = FCLayer.new(N_INPUT, N_NODE, AF_TANH, 0.1)
-	#for i in range(N_NODE):
-	#	first_layer.push_back(FCN1Unit.new(N_INPUT, 0.1))
+	var vv_weight = []
+	first_layer = vec_layer[0]
+	for i in range(5):
+		var vw = first_layer.neuron_lst[i].vec_weight
+		vv_weight.push_back([vw[0], vw[1], vw[2]])
+	$GraphRect_1.vv_weight = vv_weight
 	init()
 	forward()
 	pass # Replace with function body.
