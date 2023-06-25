@@ -79,4 +79,14 @@
 0077 ● C 06/25            │ToDo│Act分布シーン：Input に分離線表示
 0078 ◎ C 06/25 06/25 0.003│ToDo│Act分布シーン：「Layer-N」は 「N-Layer」に変更
 0079 ◎ C 06/25 06/25 0.003│ToDo│「Input」→「1-Layer Input」、「N-Layer」→「N-Layer Output」
-0080 ● C 06/25            │ToDo│
+0080 ◎ C 06/25 06/25 0.003│ToDo│トップシーン＞Activation分布：ランダムプロット
+0081 ● C 06/25            │ToDo│
+0082 ● C 06/25            │ToDo│
+0083 ● C 06/25            │ToDo│
+0084 ● C 06/25            │ToDo│
+0085 ● C 06/25            │ToDo│
+0086 ● C 06/25            │ToDo│
+0087 ● C 06/25            │ToDo│
+0088 ● C 06/25            │ToDo│
+0089 ● C 06/25            │ToDo│
+0090 ● C 06/25            │ToDo│

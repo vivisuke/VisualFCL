@@ -1,5 +1,6 @@
 extends Node2D
 
+const N_INPUT = 40
 var pressed_ix = -1
 var rect_lst = []
 
@@ -11,6 +12,13 @@ func _ready():
 	#var fnt = $BlackFontLabel.get_theme_font("font")
 	#$SingleLayerRect.fnt = $BlackFontLabel.get_theme_font("font")
 	#$SingleLayerRect.queue_redraw()
+	var vec_pair = []
+	for i in range(N_INPUT/2):
+		var x = randfn(0.0, 1.0)
+		var y = randfn(0.0, 1.0)
+		vec_pair.push_back([x, y, false])
+	$ActivationDistriRect/GraphRect.vec_input = vec_pair
+	$ActivationDistriRect/GraphRect.maxv = 3.0
 	$ActivationDistriRect/GraphRect.to_draw_div_lines = false
 	$ActivationDistriRect/GraphRect.to_plot_boolean = false
 	pass # Replace with function body.
