@@ -78,5 +78,5 @@
 0076 ◎ C 06/24 06/25 0.003│問題│トップシーン＞Activation分布：グラフは画像の影部分が周りと不連続
 0077 ● C 06/25            │ToDo│Act分布シーン：Input に分離線表示
 0078 ◎ C 06/25 06/25 0.003│ToDo│Act分布シーン：「Layer-N」は 「N-Layer」に変更
-0079 ● C 06/25            │ToDo│
+0079 ◎ C 06/25 06/25 0.003│ToDo│「Input」→「1-Layer Input」、「N-Layer」→「N-Layer Output」
 0080 ● C 06/25            │ToDo│

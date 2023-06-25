@@ -96,9 +96,9 @@ func _ready():
 	vec_graph_rect.push_back($GraphRect_6)
 	for i in range(vec_graph_rect.size()):
 		var lbl = Label.new()
-		lbl.text = "Input" if i == 0 else ("%d-Layer" % i)
+		lbl.text = "1-Layer Input" if i == 0 else ("%d-Layer Output" % i)
 		lbl.add_theme_color_override("font_color", Color.BLACK)
-		lbl.position = Vector2(130, 0)
+		lbl.position = Vector2(102, 0)
 		vec_graph_rect[i].add_child(lbl)
 		vec_graph_rect[i].to_draw_div_lines = false
 		vec_graph_rect[i].to_plot_boolean = false
