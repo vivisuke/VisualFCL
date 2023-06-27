@@ -33,13 +33,13 @@ class FCLayer21:
 	func forward(inp: Array):
 		a = vec_weight[0] + vec_weight[1]*inp[0] + vec_weight[2]*inp[1]
 		y = sigmoid(a)
-		print("a = ", a, ", y = ", y)
+		#print("a = ", a, ", y = ", y)
 	func backward(inp: Array, grad: float):
 		upgrad = []		# 上流勾配
 		var dyda = y * (1.0 - y)
 		var dydag = dyda * grad
-		print("∂L/∂y = ", grad)
-		print("∂y/∂a = ", dyda)
+		#print("∂L/∂y = ", grad)
+		#print("∂y/∂a = ", dyda)
 		upgrad.push_back(dydag)
 		upgrad.push_back(dydag * inp[0])
 		upgrad.push_back(dydag * inp[1])
@@ -117,9 +117,9 @@ func do_train():
 		for i in range(8):
 			var r = randi_range(0, boolean_pos.size()-1)
 			train(boolean_pos[r])
-	print("sumLoss = ", sumLoss)
+	#print("sumLoss = ", sumLoss)
 	$LossLabel.text = "Loss: %.3f" % (sumLoss/n_batch)
-	print("vec_grad = ", vec_grad)
+	#print("vec_grad = ", vec_grad)
 	vec_weight[0] -= ALPHA * vec_grad[0]
 	vec_weight[1] -= ALPHA * vec_grad[1]
 	vec_weight[2] -= ALPHA * vec_grad[2]

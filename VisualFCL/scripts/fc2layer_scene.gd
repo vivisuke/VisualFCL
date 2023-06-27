@@ -126,6 +126,7 @@ func forward_and_backward():
 	$LossLabel.text = "Loss: %.3f" % (sumLoss/n_batch)
 func init():
 	n_iteration = 0
+	n_train = 0
 	$ItrLabel.text = "Iteration: %d" % n_iteration
 	vec_first_layer = []
 	vec_first_layer.push_back(FC21Unit.new())

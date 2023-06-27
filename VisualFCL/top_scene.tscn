@@ -20,14 +20,14 @@ offset_left = 125.0
 offset_top = 150.0
 offset_right = 265.0
 offset_bottom = 181.0
-text = "単一ニューロン"
+text = "単一ニューロン学習"
 
 [node name="TwoLayerNNButton" type="Button" parent="."]
 offset_left = 495.0
 offset_top = 150.0
 offset_right = 635.0
 offset_bottom = 181.0
-text = "２層NN"
+text = "２層NN学習"
 
 [node name="ActivateDistriButton" type="Button" parent="."]
 offset_left = 865.0
