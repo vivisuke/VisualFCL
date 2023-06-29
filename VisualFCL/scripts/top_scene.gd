@@ -8,6 +8,7 @@ var rect_lst = []
 func _ready():
 	rect_lst.push_back($SingleLayerRect)
 	rect_lst.push_back($DoubleLayerRect)
+	rect_lst.push_back($TripleLayerRect)
 	rect_lst.push_back($ActivationDistriRect)
 	#var fnt = $BlackFontLabel.get_theme_font("font")
 	#$SingleLayerRect.fnt = $BlackFontLabel.get_theme_font("font")
@@ -71,6 +72,8 @@ func do_change_scene(ix):
 	elif ix == 1:
 		get_tree().change_scene_to_file("res://fc2layer_scene.tscn")
 	elif ix == 2:
+		get_tree().change_scene_to_file("res://fc3layer_scene.tscn")
+	elif ix == 3:
 		get_tree().change_scene_to_file("res://activate_distri_scene.tscn")
 	
 func _on_single_layer_nn_button_pressed():
