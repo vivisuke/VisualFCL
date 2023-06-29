@@ -30,10 +30,10 @@ func add_label_raw(pos: Vector2, txt: String):
 	add_child(lbl)
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	add_label(Vector2(X_WEIGHT, Y_X1-10-45), "b")
-	add_label(Vector2(X_WEIGHT, Y_X1-10), "w1")
-	add_label(Vector2(X_WEIGHT, Y_X1-10+45), "w2")
-	add_label(Vector2(X_AF, Y_X1-10), "h")
+	add_label(Vector2(X_WEIGHT, Y_X1-10-45), "*b")
+	add_label(Vector2(X_WEIGHT, Y_X1-10), "*w1")
+	add_label(Vector2(X_WEIGHT, Y_X1-10+45), "*w2")
+	add_label(Vector2(X_AF, Y_X1-10), "h()")
 	#
 	add_label_raw(Vector2(X_INPUT, Y_LINE-24), "Affine")
 	add_label_raw(Vector2(X_ACT+15, Y_LINE-24), "Actv-Func")

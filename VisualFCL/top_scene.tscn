@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://bhn16u7hhqek5"]
+[gd_scene load_steps=8 format=3 uid="uid://bhn16u7hhqek5"]
 
 [ext_resource type="Script" path="res://scripts/top_scene.gd" id="1_8gowc"]
 [ext_resource type="Script" path="res://scripts/SingleLayerRect.gd" id="2_v6wdx"]
 [ext_resource type="Script" path="res://scripts/DoubleLayerRect.gd" id="3_xv4wc"]
 [ext_resource type="Script" path="res://scripts/ActivationDistriRect.gd" id="4_6cx0r"]
+[ext_resource type="Script" path="res://scripts/TripleLayerRect.gd" id="4_114gl"]
 [ext_resource type="Script" path="res://scripts/GraphRect.gd" id="5_1bxby"]
 [ext_resource type="Texture2D" uid="uid://cpa1qlinelwg1" path="res://images/input_data.png" id="5_1gi6k"]
 
@@ -16,6 +17,7 @@ offset_bottom = 648.0
 color = Color(0.941176, 0.941176, 0.941176, 1)
 
 [node name="SingleLayerNNButton" type="Button" parent="."]
+visible = false
 offset_left = 125.0
 offset_top = 150.0
 offset_right = 265.0
@@ -23,6 +25,7 @@ offset_bottom = 181.0
 text = "単一ニューロン学習"
 
 [node name="TwoLayerNNButton" type="Button" parent="."]
+visible = false
 offset_left = 495.0
 offset_top = 150.0
 offset_right = 635.0
@@ -30,31 +33,58 @@ offset_bottom = 181.0
 text = "２層NN学習"
 
 [node name="ActivateDistriButton" type="Button" parent="."]
+visible = false
 offset_left = 865.0
 offset_top = 150.0
 offset_right = 1005.0
 offset_bottom = 181.0
 text = "Activation分布"
 
+[node name="TitleLabel" type="Label" parent="."]
+offset_right = 1152.0
+offset_bottom = 53.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+text = "Visual FCL"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VersionLabel" type="Label" parent="."]
+offset_left = 672.0
+offset_top = 12.0
+offset_right = 784.0
+offset_bottom = 43.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 20
+text = "ver 0.003"
+vertical_alignment = 2
+
 [node name="SingleLayerRect" type="ColorRect" parent="."]
-offset_left = 20.0
-offset_top = 200.0
-offset_right = 370.0
-offset_bottom = 500.0
+offset_left = 25.0
+offset_top = 50.0
+offset_right = 375.0
+offset_bottom = 330.0
 script = ExtResource("2_v6wdx")
 
 [node name="DoubleLayerRect" type="ColorRect" parent="."]
-offset_left = 390.0
-offset_top = 200.0
-offset_right = 740.0
-offset_bottom = 500.0
+offset_left = 400.0
+offset_top = 50.0
+offset_right = 750.0
+offset_bottom = 330.0
 script = ExtResource("3_xv4wc")
 
+[node name="TripleLayerRect" type="ColorRect" parent="."]
+offset_left = 775.0
+offset_top = 50.0
+offset_right = 1125.0
+offset_bottom = 330.0
+script = ExtResource("4_114gl")
+
 [node name="ActivationDistriRect" type="ColorRect" parent="."]
-offset_left = 760.0
-offset_top = 200.0
-offset_right = 1110.0
-offset_bottom = 500.0
+offset_left = 25.0
+offset_top = 350.0
+offset_right = 375.0
+offset_bottom = 630.0
 script = ExtResource("4_6cx0r")
 
 [node name="GraphRect" type="ColorRect" parent="ActivationDistriRect"]
@@ -74,24 +104,6 @@ offset_right = 378.0
 offset_bottom = 350.0
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("5_1gi6k")
-
-[node name="TitleLabel" type="Label" parent="."]
-offset_top = 5.0
-offset_right = 1152.0
-offset_bottom = 53.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 32
-text = "Visual FCL"
-horizontal_alignment = 1
-
-[node name="VersionLabel" type="Label" parent="."]
-offset_top = 45.0
-offset_right = 1152.0
-offset_bottom = 76.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 20
-text = "ver 0.003"
-horizontal_alignment = 1
 
 [connection signal="pressed" from="SingleLayerNNButton" to="." method="_on_single_layer_nn_button_pressed"]
 [connection signal="pressed" from="TwoLayerNNButton" to="." method="_on_two_layer_nn_button_pressed"]
