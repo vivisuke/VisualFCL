@@ -11,25 +11,32 @@ offset_right = 1152.0
 offset_bottom = 648.0
 color = Color(0.941176, 0.941176, 0.941176, 1)
 
-[node name="GraphRect_1" type="ColorRect" parent="."]
-offset_left = 20.0
-offset_top = 20.0
-offset_right = 470.0
-offset_bottom = 470.0
-script = ExtResource("1_pmkmr")
-
-[node name="GraphRect_2" type="ColorRect" parent="."]
-offset_left = 491.0
-offset_top = 20.0
-offset_right = 941.0
-offset_bottom = 470.0
-script = ExtResource("1_pmkmr")
-
 [node name="TopButton" type="Button" parent="."]
 offset_left = 1011.0
 offset_top = 25.0
 offset_right = 1136.0
 offset_bottom = 56.0
 text = "Top"
+
+[node name="GraphRect_1" type="ColorRect" parent="."]
+offset_left = 20.0
+offset_top = 30.0
+offset_right = 320.0
+offset_bottom = 330.0
+script = ExtResource("1_pmkmr")
+
+[node name="GraphRect_2" type="ColorRect" parent="."]
+offset_left = 340.0
+offset_top = 30.0
+offset_right = 640.0
+offset_bottom = 330.0
+script = ExtResource("1_pmkmr")
+
+[node name="GraphRect_3" type="ColorRect" parent="."]
+offset_left = 660.0
+offset_top = 30.0
+offset_right = 960.0
+offset_bottom = 330.0
+script = ExtResource("1_pmkmr")
 
 [connection signal="pressed" from="TopButton" to="." method="_on_top_button_pressed"]
