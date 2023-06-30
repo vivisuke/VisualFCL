@@ -1,13 +1,13 @@
 extends ColorRect
 
 const NODE_RADIUS = 20.0
-const Y_LINE = 50
+const Y_LINE = 40
 const X_INPUT = 70
 const X_ACT = 175
 const X_OUTPUT = 280
-const Y_1 = 75+20
-const Y_X1 = 150+20
-const Y_X2 = 225+20
+const Y_1 = 75+10
+const Y_X1 = 150+10
+const Y_X2 = 225+10
 const X_WEIGHT = 120
 const X_AF = 225
 
