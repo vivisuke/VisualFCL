@@ -95,7 +95,7 @@ func _ready():
 		vec_graph_rect[i].to_plot_boolean = false
 	vec_layer.resize(N_LAYER)
 	for i in range(N_LAYER):
-		vec_layer[i] = FCLayer.new(N_NODE, N_NODE, AF_TANH, 1/sqrt(2.0))
+		vec_layer[i] = FCLayer.new(N_NODE, N_NODE, AF_TANH, 1/sqrt(2.0))	# Xavier
 	init()
 	#set_div_line()
 	pass # Replace with function body.
@@ -116,6 +116,7 @@ func set_div_line():
 	for k in range(N_LAYER):
 		var vv_weight = []
 		var layer = vec_layer[k]
+		layer.set_norm(1/sqrt(2.0))		# Xavier
 		for i in range(N_NODE):
 			var vw = layer.neuron_lst[i].vec_weight
 			vv_weight.push_back([vw[0], vw[1], vw[2]])
