@@ -27,9 +27,11 @@ func init():
 		#vec_input.push_back(x)
 		var x2 = randfn(0.0, 1.0)
 		#vec_input.push_back(y)
-		vec_pair.push_back([x1, x2, false])
+		vec_pair.push_back([x1, x2, x1*x1+x2*x2<=1.0])
 	$GraphRect_1.vec_input = vec_pair
-	$GraphRect_1.maxv = 4.0
+	$GraphRect_1.maxv = 3.0
+	$GraphRect_2.maxv = 1.0
+	$GraphRect_3.maxv = 1.0
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
