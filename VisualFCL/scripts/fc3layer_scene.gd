@@ -146,6 +146,13 @@ func forward_and_backward():
 func update_graphs():
 	for i in range(vec_graph_rect.size()):
 		vec_graph_rect[i].queue_redraw()
+	#
+	$Weight11Label.text = "[b, w1, w2]: [%.3f, %.3f, %.3f]" % vec_layer[0].neuron_lst[0].vec_weight
+	$Weight12Label.text = "[b, w1, w2]: [%.3f, %.3f, %.3f]" % vec_layer[0].neuron_lst[1].vec_weight
+	$Weight21Label.text = "[b, w1, w2]: [%.3f, %.3f, %.3f]" % vec_layer[1].neuron_lst[0].vec_weight
+	$Weight22Label.text = "[b, w1, w2]: [%.3f, %.3f, %.3f]" % vec_layer[1].neuron_lst[1].vec_weight
+	$Weight31Label.text = "[b, w1, w2]: [%.3f, %.3f, %.3f]" % vec_layer[2].neuron_lst[0].vec_weight
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
