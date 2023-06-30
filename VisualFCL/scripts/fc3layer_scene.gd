@@ -32,7 +32,9 @@ func init():
 	$GraphRect_1.maxv = 3.0
 	$GraphRect_2.maxv = 1.0
 	$GraphRect_3.maxv = 1.0
-
+func update_graphs():
+	for i in range(vec_graph_rect.size()):
+		vec_graph_rect[i].queue_redraw()
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
@@ -40,4 +42,10 @@ func _process(delta):
 
 func _on_top_button_pressed():
 	get_tree().change_scene_to_file("res://top_scene.tscn")
+	pass # Replace with function body.
+
+
+func _on_init_button_pressed():
+	init()
+	update_graphs()
 	pass # Replace with function body.
