@@ -97,6 +97,7 @@ func _ready():
 	for i in range(N_LAYER):
 		vec_layer[i] = FCLayer.new(N_NODE, N_NODE, AF_TANH, 1/sqrt(2.0))
 	init()
+	#set_div_line()
 	pass # Replace with function body.
 func init():
 	#vec_input = []
@@ -111,6 +112,16 @@ func init():
 	$GraphRect_1.maxv = 3.0
 	$GraphRect_2.maxv = 1.0
 	$GraphRect_3.maxv = 1.0
+func set_div_line():
+	for k in range(N_LAYER):
+		var vv_weight = []
+		var layer = vec_layer[k]
+		for i in range(N_NODE):
+			var vw = layer.neuron_lst[i].vec_weight
+			vv_weight.push_back([vw[0], vw[1], vw[2]])
+			print("[b, w1, w2] = ", [vw[0], vw[1], vw[2]])
+		vec_graph_rect[k].vv_weight = vv_weight
+		vec_graph_rect[k].queue_redraw()
 func update_graphs():
 	for i in range(vec_graph_rect.size()):
 		vec_graph_rect[i].queue_redraw()
@@ -126,5 +137,6 @@ func _on_top_button_pressed():
 
 func _on_init_button_pressed():
 	init()
+	set_div_line()
 	update_graphs()
 	pass # Replace with function body.
