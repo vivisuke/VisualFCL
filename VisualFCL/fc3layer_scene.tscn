@@ -13,23 +13,23 @@ color = Color(0.941176, 0.941176, 0.941176, 1)
 
 [node name="GraphRect_1" type="ColorRect" parent="."]
 offset_left = 20.0
-offset_top = 30.0
+offset_top = 100.0
 offset_right = 320.0
-offset_bottom = 330.0
+offset_bottom = 400.0
 script = ExtResource("1_pmkmr")
 
 [node name="GraphRect_2" type="ColorRect" parent="."]
 offset_left = 340.0
-offset_top = 30.0
+offset_top = 100.0
 offset_right = 640.0
-offset_bottom = 330.0
+offset_bottom = 400.0
 script = ExtResource("1_pmkmr")
 
 [node name="GraphRect_3" type="ColorRect" parent="."]
 offset_left = 660.0
-offset_top = 30.0
+offset_top = 100.0
 offset_right = 960.0
-offset_bottom = 330.0
+offset_bottom = 400.0
 script = ExtResource("1_pmkmr")
 
 [node name="TopButton" type="Button" parent="."]
@@ -45,6 +45,108 @@ offset_top = 75.0
 offset_right = 1136.0
 offset_bottom = 106.0
 text = "Init"
+
+[node name="Weight11Label" type="Label" parent="."]
+offset_left = 20.0
+offset_top = 500.0
+offset_right = 166.0
+offset_bottom = 526.0
+rotation = -0.00716988
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "[b, w1, w2]: [0, 0, 0]"
+
+[node name="Weight12Label" type="Label" parent="."]
+offset_left = 20.0
+offset_top = 553.0
+offset_right = 166.0
+offset_bottom = 579.0
+rotation = -0.00716988
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "[b, w1, w2]: [0, 0, 0]"
+
+[node name="Weight21Label" type="Label" parent="."]
+offset_left = 340.0
+offset_top = 500.0
+offset_right = 486.0
+offset_bottom = 526.0
+rotation = -0.00716988
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "[b, w1, w2]: [0, 0, 0]"
+
+[node name="Weight22Label" type="Label" parent="."]
+offset_left = 340.0
+offset_top = 553.0
+offset_right = 486.0
+offset_bottom = 579.0
+rotation = -0.00716988
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "[b, w1, w2]: [0, 0, 0]"
+
+[node name="Weight31Label" type="Label" parent="."]
+offset_left = 660.0
+offset_top = 500.0
+offset_right = 806.0
+offset_bottom = 526.0
+rotation = -0.00716988
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "[b, w1, w2]: [0, 0, 0]"
+
+[node name="Grad11Label" type="Label" parent="."]
+offset_left = 20.0
+offset_top = 527.0
+offset_right = 199.0
+offset_bottom = 553.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "∂L/∂[b, w1, w2]: [0, 0, 0]"
+
+[node name="Grad12Label" type="Label" parent="."]
+offset_left = 20.0
+offset_top = 579.0
+offset_right = 199.0
+offset_bottom = 605.0
+rotation = -0.00716988
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "∂L/∂[b, w1, w2]: [0, 0, 0]"
+
+[node name="Grad21Label" type="Label" parent="."]
+offset_left = 340.0
+offset_top = 527.0
+offset_right = 519.0
+offset_bottom = 553.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "∂L/∂[b, w1, w2]: [0, 0, 0]"
+
+[node name="Grad22Label" type="Label" parent="."]
+offset_left = 340.0
+offset_top = 579.0
+offset_right = 519.0
+offset_bottom = 605.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "∂L/∂[b, w1, w2]: [0, 0, 0]"
+
+[node name="Grad31Label" type="Label" parent="."]
+offset_left = 660.0
+offset_top = 527.0
+offset_right = 839.0
+offset_bottom = 553.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "∂L/∂[b, w1, w2]: [0, 0, 0]"
+
+[node name="LossLabel" type="Label" parent="."]
+offset_left = 953.0
+offset_top = 527.0
+offset_right = 1038.0
+offset_bottom = 553.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Loss = N/A"
+
+[node name="ItrLabel" type="Label" parent="."]
+offset_left = 953.0
+offset_top = 501.0
+offset_right = 1038.0
+offset_bottom = 527.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Iteration: 0"
 
 [connection signal="pressed" from="TopButton" to="." method="_on_top_button_pressed"]
 [connection signal="pressed" from="InitButton" to="." method="_on_init_button_pressed"]

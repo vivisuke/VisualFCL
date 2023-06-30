@@ -8,7 +8,10 @@ const N_INPUT = 10				# 入力データ数/ミニバッチ
 const N_NODE = 2				# 入力、中間、出力ノード数
 const N_LAYER = 3				# レイヤー数
 
-var vec_pair = []				# データ配列, 要素：[x, y, bool]
+var vec_input = []				# データ配列, 要素：[x1, x2]
+var vec_tv = []					# 各データの教師値、要素 true/false
+var vec_pair = []				# データ配列, 要素：[x1, x2, bool]
+var vv_pair = []				# 2次元配列、要素：[x1, x2, bool]
 var vec_graph_rect = []
 var vec_layer = []
 
@@ -98,19 +101,22 @@ func _ready():
 		vec_layer[i] = FCLayer.new(N_NODE, N_NODE, AF_TANH, 1/sqrt(2.0))	# Xavier
 	vec_layer[N_LAYER-1] = FCLayer.new(N_NODE, 1, AF_SIGMOID, 1/sqrt(2.0))	# Xavier
 	init()
-	#set_div_line()
+	set_div_line()
+	forward_and_backward()
+	update_graphs()
 	pass # Replace with function body.
 func init():
-	#vec_input = []
-	vec_pair = []
+	vec_input = []
+	vec_tv = []
+	#vec_pair = []
 	for i in range(N_INPUT):
 		var x1 = randfn(0.0, 1.0)
-		#vec_input.push_back(x)
 		var x2 = randfn(0.0, 1.0)
-		#vec_input.push_back(y)
-		vec_pair.push_back([x1, x2, x1*x1+x2*x2<=1.0])
-	$GraphRect_1.vec_input = vec_pair
-	$GraphRect_1.maxv = 3.0
+		vec_input.push_back([x1, x2])
+		#vec_pair.push_back([x1, x2, x1*x1+x2*x2<=1.0])
+		vec_tv.push_back(x1*x1+x2*x2<=1.0)
+	#$GraphRect_1.vec_input = vec_pair
+	$GraphRect_1.maxv = 2.0
 	$GraphRect_2.maxv = 1.0
 	$GraphRect_3.maxv = 1.0
 func set_div_line():
@@ -124,6 +130,19 @@ func set_div_line():
 			print("[b, w1, w2] = ", [vw[0], vw[1], vw[2]])
 		vec_graph_rect[k].vv_weight = vv_weight
 		vec_graph_rect[k].queue_redraw()
+# forward 計算 → bakward 計算、勾配計算、重みには反映させない
+func forward_and_backward():
+	vv_pair = [[], [], []]		# for 3層NN
+	for i in range(vec_input.size()):
+		var tmp = vec_input[i]
+		for k in range(N_LAYER):
+			#print(tmp)
+			vv_pair[k].push_back([tmp[0], tmp[1], vec_tv[i]])
+			vec_layer[k].forward(tmp)
+			tmp = vec_layer[k].vec_output
+	for k in range(N_LAYER):
+		vec_graph_rect[k].vec_input = vv_pair[k]
+	pass
 func update_graphs():
 	for i in range(vec_graph_rect.size()):
 		vec_graph_rect[i].queue_redraw()
@@ -140,5 +159,6 @@ func _on_top_button_pressed():
 func _on_init_button_pressed():
 	init()
 	set_div_line()
+	forward_and_backward()
 	update_graphs()
 	pass # Replace with function body.
